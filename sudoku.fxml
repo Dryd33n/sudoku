@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="438.0" style="-fx-background-color: #14110F;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox prefHeight="734.0" prefWidth="438.0">
+            <children>
+                <Label prefHeight="49.0" prefWidth="413.0" text="SUDOKU #" textFill="#5603ad">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="40.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </Label>
+                <HBox prefHeight="57.0" prefWidth="438.0">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                    </VBox.margin>
+                    <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="125.0" style="-fx-background-color: #b3dec1; -fx-background-radius: 10;" text="NEW GAME" textFill="#5603ad">
+                            <font>
+                                <Font name="Segoe UI Black" size="16.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="124.0" style="-fx-background-color: #b3dec1; -fx-background-radius: 10;" text="RESTART" textFill="#5603ad">
+                            <font>
+                                <Font name="Segoe UI Black" size="16.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="129.0" style="-fx-background-color: #b3dec1; -fx-background-radius: 10;" text="HINT" textFill="#5603ad">
+                            <font>
+                                <Font name="Segoe UI Black" size="16.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <AnchorPane prefHeight="378.0" prefWidth="378.0" style="-fx-background-color: #232020; -fx-border-image-slice: true; -fx-background-radius: 10;">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="30.0" right="30.0" />
+                    </VBox.margin>
+                    <children>
+                        <VBox prefHeight="378.0" prefWidth="378.0">
+                            <children>
+                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                    <children>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #ffffff20; -fx-background-radius: 10 0 0 0;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileA0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileA1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileA2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileB0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileB1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileB2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileC0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileC1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileC2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #00000030;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileA3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileA4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileA5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileB3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileB4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileB5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileC3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileC4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileC5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #ffffff20; -fx-background-radius: 0 10 0 0;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileA6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileA7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileA8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileB6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileB7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileB8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileC6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileC7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileC8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                    <children>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #00000030;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileD0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileD1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileD2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileE0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileE1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileE2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileF0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileF1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileF2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #ffffff20;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileD3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileD4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileD5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileE3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileE4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileE5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileF3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileF4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileF5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #00000030;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileD6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileD7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileD8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileE6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileE7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileE8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileF6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileF7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileF8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                    <children>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #ffffff20; -fx-background-radius: 0 0 0 10;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileG0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileG1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileG2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileH0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileH1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileH2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileI0" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileI1" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileI2" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #00000030;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileG3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileG4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileG5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileH3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileH4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileH5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileI3" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileI4" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileI5" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox prefHeight="126.0" prefWidth="126.0" style="-fx-background-color: #ffffff20; -fx-background-radius: 0 0 10 0;">
+                                            <children>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileG6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileG7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileG8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileH6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileH7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileH8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="126.0" prefWidth="378.0">
+                                                    <children>
+                                                        <Label fx:id="gameTileI6" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileI7" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" style="-fx-background-color: #ffffff10;" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="gameTileI8" alignment="CENTER" prefHeight="55.0" prefWidth="42.0" text="0" textFill="#3e78b2">
+                                                            <font>
+                                                                <Font name="Segoe UI Black" size="20.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <HBox prefHeight="31.0" prefWidth="438.0">
+                    <children>
+                        <Label prefHeight="26.0" prefWidth="215.0" text="Time 0:00" textFill="#b3dec1">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="30.0" />
+                            </HBox.margin>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="225.0" text="Completion: 0/81" textFill="#b3dec1">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="30.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+   <stylesheets>
+      <URL value="@sudoku.css" />
+      <URL value="@src/main/resources/app/dryden/sudoku/sudoku.css" />
+   </stylesheets>
+</AnchorPane>

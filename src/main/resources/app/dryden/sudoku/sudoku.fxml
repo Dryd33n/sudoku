@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="438.0" style="-fx-background-color: #14110F;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dryden.sudoku.SudokuAppController">
+    <children>
+        <VBox prefHeight="734.0" prefWidth="438.0">
+            <children>
+                <Label prefHeight="49.0" prefWidth="413.0" text="SUDOKU #" textFill="#5603ad">
+                    <font>
+                        <Font name="Segoe UI Semibold" size="40.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </Label>
+                <HBox prefHeight="57.0" prefWidth="438.0">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                    </VBox.margin>
+                    <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="125.0" style="-fx-background-color: #b3dec1; -fx-background-radius: 10;" text="NEW GAME" textFill="#5603ad">
+                            <font>
+                                <Font name="Segoe UI Black" size="16.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="124.0" style="-fx-background-color: #b3dec1; -fx-background-radius: 10;" text="RESTART" textFill="#5603ad">
+                            <font>
+                                <Font name="Segoe UI Black" size="16.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="129.0" style="-fx-background-color: #b3dec1; -fx-background-radius: 10;" text="HINT" textFill="#5603ad">
+                            <font>
+                                <Font name="Segoe UI Black" size="16.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <AnchorPane prefHeight="378.0" prefWidth="378.0" style="-fx-background-color: #232020; -fx-border-image-slice: true; -fx-background-radius: 10;">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="30.0" right="30.0" />
+                    </VBox.margin>
+               <children>
+                  <VBox fx:id="boardFrame" prefHeight="378.0" prefWidth="378.0" />
+               </children>
+                </AnchorPane>
+                <HBox prefHeight="31.0" prefWidth="438.0">
+                    <children>
+                        <Label prefHeight="26.0" prefWidth="215.0" text="Time 0:00" textFill="#b3dec1">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="30.0" />
+                            </HBox.margin>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="225.0" text="Completion: 0/81" textFill="#b3dec1">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="30.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+   <stylesheets>
+      <URL value="@sudoku.css" />
+   </stylesheets>
+</AnchorPane>
