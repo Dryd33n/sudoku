@@ -2,23 +2,21 @@ package app.dryden.sudoku;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 public class SudokuAppController {
 
     public VBox boardFrame;
-    public StringProperty[][] boardModel;
+
+    public static Label currentTile = new Label();
+    public static StringProperty[][] boardModel;
 
 
 
@@ -29,6 +27,7 @@ public class SudokuAppController {
 
         buildBoardModel(BOARD_SIZE);
         buildBoard(BOARD_SIZE);
+
     }
 
     private void buildBoardModel(int size) {
@@ -73,13 +72,16 @@ public class SudokuAppController {
             for (int j = 0; j < size; j++) {
                 Label cell = new Label();
                 int colorIndex;
+                String styleString;
                 cell.setMinSize(cellWidth, cellHeight);
                 cell.textProperty().bind(boardModel[i][j]);
                 cell.getStyleClass().add("sudoku-tile");
                 cell.textProperty().bind(boardModel[i][j]);
+                cell.setOnMouseClicked(gameTileClickedHandler);
+                cell.setId("gameTile" + i + j);
 
 
-                if((Math.floorDiv(i,3) + Math.floorDiv(j,3)) % 2 == 1){//is on an odd subgrid
+                if((Math.floorDiv(i,subGridCount) + Math.floorDiv(j,subGridCount)) % 2 == 1){//is on an odd subgrid
                     if(((i+j) % 2) == 1){//is on an odd tile
                         colorIndex = 0;
                     }else{
@@ -93,10 +95,38 @@ public class SudokuAppController {
                     }
                 }
 
-                cell.setStyle("-fx-background-color: " + gridColors[colorIndex] + ";");
+                styleString = "-fx-background-color: " + gridColors[colorIndex] + ";";
+
+                if(i == 0 && j == 0) styleString += "-fx-background-radius: 10 0 0 0;";
+                else if(i == 0 && j == size - 1) styleString += "-fx-background-radius: 0 10 0 0;";
+                else if(i == size - 1 && j == 0) styleString += "-fx-background-radius: 0 0 0 10;";
+                else if(i == size - 1 && j == size - 1) styleString += "-fx-background-radius: 0 0 10 0;";
+
+                cell.setStyle(styleString);
                 row.getChildren().add(cell);
 
             }
         }
     }
+
+    EventHandler<MouseEvent> gameTileClickedHandler = event -> {
+        currentTile.getStyleClass().remove("sudoku-tile-editing");
+        currentTile = (Label) event.getSource();
+        currentTile.getStyleClass().add("sudoku-tile-editing");
+
+    };
+
+    static EventHandler<KeyEvent> keyPressedHandler = event -> {
+        System.out.println(event.getCode());
+        String key = event.getCode().toString();
+        int currentTileRow = Integer.parseInt(currentTile.getId().substring(8,9));
+        int currentTileCol = Integer.parseInt(currentTile.getId().substring(9,10));
+
+
+        if(event.getCode().isDigitKey()){
+            System.out.println(event.getCode());
+            boardModel[currentTileRow][currentTileCol].set(String.valueOf(event.getCode()));
+        }
+    };
+
 }

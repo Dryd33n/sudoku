@@ -17,3 +17,13 @@
     -fx-font-size: 16px;
     -fx-text-fill: #ffffff;
 }
+
+.sudoku-tile-editing {
+    -fx-border-width: 2px;
+    -fx-border-color: #FFA500;
+}
+
+.sudoku-tile-invalid {
+    -fx-border-width: 2px;
+    -fx-border-color: #FF0000;
+}
