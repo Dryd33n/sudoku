@@ -26,7 +26,7 @@
                         <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                     </VBox.margin>
                     <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="125.0" style="-fx-background-color: #b3dec1; -fx-background-radius: 10;" text="NEW GAME" textFill="#5603ad">
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#generateNewBoard" prefHeight="49.0" prefWidth="125.0" style="-fx-background-color: #b3dec1; -fx-background-radius: 10;" text="NEW GAME" textFill="#5603ad">
                             <font>
                                 <Font name="Segoe UI Black" size="16.0" />
                             </font>

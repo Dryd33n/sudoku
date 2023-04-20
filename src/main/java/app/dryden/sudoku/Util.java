@@ -18,4 +18,10 @@ public class Util {
 
         return result;
     }
+
+   public static Boolean isPerfectSquare(int x)
+    {
+        int s = (int) Math.sqrt(x);
+        return (s*s == x);
+    }
 }

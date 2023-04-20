@@ -2,8 +2,6 @@ package app.dryden.sudoku;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -25,6 +23,8 @@ public class SudokuAppController {
 
         boardModel = new StringProperty[BOARD_SIZE][BOARD_SIZE];
 
+        Board board = new Board(0,9);
+
         buildBoardModel(BOARD_SIZE);
         buildBoard(BOARD_SIZE);
 
@@ -38,17 +38,10 @@ public class SudokuAppController {
         }
     }
 
-    public void updateBoardModel(int[][] board){
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                boardModel[i][j].set(String.valueOf(board[i][j]));
-            }
-        }
-    }
 
     public void buildBoard(int size){
 
-        if (Math.sqrt((double) size) % 1 != 0) throw new IllegalArgumentException("Size must be a perfect square");
+        if (Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
         if (size < 4) throw new IllegalArgumentException("Board size must be at least 4");
 
         int subGridCount = (int) Math.sqrt(size);
@@ -109,6 +102,10 @@ public class SudokuAppController {
         }
     }
 
+    public void generateNewBoard(){
+
+    }
+
     EventHandler<MouseEvent> gameTileClickedHandler = event -> {
         currentTile.getStyleClass().remove("sudoku-tile-editing");
         currentTile = (Label) event.getSource();
@@ -117,14 +114,12 @@ public class SudokuAppController {
     };
 
     static EventHandler<KeyEvent> keyPressedHandler = event -> {
-        System.out.println(event.getCode());
-        String key = event.getCode().toString();
+        String key = event.getCharacter();
         int currentTileRow = Integer.parseInt(currentTile.getId().substring(8,9));
         int currentTileCol = Integer.parseInt(currentTile.getId().substring(9,10));
 
 
-        if(event.getCode().isDigitKey()){
-            System.out.println(event.getCode());
+        if(event.getCharacter().matches("[1-9]")){
             boardModel[currentTileRow][currentTileCol].set(String.valueOf(event.getCode()));
         }
     };
