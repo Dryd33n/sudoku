@@ -2,11 +2,21 @@ package app.dryden.sudoku;
 
 public class Board extends BoardUtils {
     protected int[][] sudokuBoard;
+    protected boolean[][] protectedTiles = BoardUtils.getBoolMatrix(true);
     protected int boardSize;
     protected int subgridSize;
 
 
-    //CONSTRUCTORS
+
+
+    //---------------------------------------------------------------------------
+
+    //                        CONSTRUCTORS
+
+    //---------------------------------------------------------------------------
+
+
+
 
     public Board(int value, int size){
         if(!Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
@@ -14,15 +24,8 @@ public class Board extends BoardUtils {
 
         boardSize = size;
         subgridSize = (int) Math.sqrt(size);
-        sudokuBoard = generateEmptyBoard(value, size);
-        updateBoardModel();
-    }
-
-    public Board(double difficulty, int size){
-        if(!Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
-
-        boardSize = size;
-        subgridSize = (int) Math.sqrt(size);
+        sudokuBoard = generateUnsolvedBoard(10);
+        protectedTiles = BoardUtils.getBoolMatrix(false);
         updateBoardModel();
     }
 
@@ -32,14 +35,21 @@ public class Board extends BoardUtils {
         subgridSize = (int) Math.sqrt(size);
         boardSize = size;
 
-        sudokuBoard = BoardUtils.generateSolvedBoard();
+        sudokuBoard = BoardUtils.generateUnsolvedBoard(15);
+        getProtectedTiles();
         updateBoardModel();
     }
 
+
     public void loadNewBoard(){
-        sudokuBoard = BoardUtils.generateSolvedBoard();
+        sudokuBoard = BoardUtils.generateUnsolvedBoard(15);
+        getProtectedTiles();
         updateBoardModel();
     }
+
+
+
+
 
 
 
@@ -49,7 +59,7 @@ public class Board extends BoardUtils {
 
     //---------------------------------------------------------------------------
 
-    //                        BOARD CHECKING FUNCTIONS
+    //                        BOARD VALIDATION FUNCTIONS
 
     //---------------------------------------------------------------------------
 
@@ -110,6 +120,18 @@ public class Board extends BoardUtils {
         return false;
     }
 
+    public Boolean isProtectedTile(int rowNumber, int columnNumber){
+        return protectedTiles[rowNumber][columnNumber];
+    }
+
+
+
+
+
+
+
+
+
 
     //---------------------------------------------------------------------------
 
@@ -117,8 +139,26 @@ public class Board extends BoardUtils {
 
     //---------------------------------------------------------------------------
 
-    private Boolean isValid(int rowNumber, int columnNumber, int containsNumber){
-        return !rowContains(rowNumber, containsNumber) && !columnContains(columnNumber, containsNumber) && !subgridContains(rowNumber, columnNumber, containsNumber);
+
+
+
+    public void updateBoardModel(){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if(sudokuBoard[i][j] == 0) SudokuAppController.boardModel[i][j].set("");
+                else SudokuAppController.boardModel[i][j].set(String.valueOf(sudokuBoard[i][j]));
+            }
+        }
+
+        getProtectedTiles();
+    }
+
+    public void getProtectedTiles(){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                protectedTiles[i][j] = sudokuBoard[i][j] != 0;
+            }
+        }
     }
 
 
@@ -145,15 +185,6 @@ public class Board extends BoardUtils {
             }
         }
 
-    }
-
-
-    public void updateBoardModel(){
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                SudokuAppController.boardModel[i][j].set(String.valueOf(sudokuBoard[i][j]));
-            }
-        }
     }
 
 

@@ -15,6 +15,7 @@ public class SudokuAppController {
 
     public static Label currentTile = new Label();
     public static StringProperty[][] boardModel;
+    public static Boolean[][] protectedTiles;
 
 
 
@@ -106,10 +107,16 @@ public class SudokuAppController {
 
 
     EventHandler<MouseEvent> gameTileClickedHandler = event -> {
-        currentTile.getStyleClass().remove("sudoku-tile-editing");
-        currentTile = (Label) event.getSource();
-        currentTile.getStyleClass().add("sudoku-tile-editing");
+        Label newTile = (Label) event.getSource();
 
+        int currentTileRow = Integer.parseInt(newTile.getId().substring(8,9));
+        int currentTileCol = Integer.parseInt(newTile.getId().substring(9,10));
+
+        if(SudokuApplication.board.isProtectedTile(currentTileRow,currentTileCol)) return;
+
+        currentTile.getStyleClass().remove("sudoku-tile-editing");
+        currentTile = newTile;
+        currentTile.getStyleClass().add("sudoku-tile-editing");
     };
 
     static EventHandler<KeyEvent> keyPressedHandler = event -> {
@@ -119,7 +126,7 @@ public class SudokuAppController {
 
 
         if(event.getCharacter().matches("[1-9]")){
-            boardModel[currentTileRow][currentTileCol].set(String.valueOf(event.getCode()));
+            boardModel[currentTileRow][currentTileCol].set(String.valueOf(key));
         }
     };
 
