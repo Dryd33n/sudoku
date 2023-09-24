@@ -1,6 +1,6 @@
 package app.dryden.sudoku;
 
-public class Board {
+public class Board extends BoardUtils {
     protected int[][] sudokuBoard;
     protected int boardSize;
     protected int subgridSize;
@@ -32,60 +32,20 @@ public class Board {
         subgridSize = (int) Math.sqrt(size);
         boardSize = size;
 
-        generateNewBoard();
+        sudokuBoard = BoardUtils.generateSolvedBoard();
         updateBoardModel();
     }
 
-    //BOARD GENERATORS
-    public int[][] generateEmptyBoard(int size, int value){
-        int[][] board = new int[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                board[i][j] = value;
-            }
-        }
-        return board;
-    }
-
-    public int[][] shuffleRow(int[][] board, int row_a, int row_b){
-        int[] row = board[row_a];
-
-        board[row_a] = board[row_b];
-        board[row_b] = board[row_a];
-
-        return board;
-    }
-
-    public int[][] shuffleColumn(int[][] board)
-    public int[][] generateNewBoard() {
-        int[][] baseBoard = new int[][]{{8 ,2 ,7 ,1 ,5 ,4 ,3 ,9 ,6 },
-                                        {9 ,5 ,5 ,3 ,2 ,7 ,1 ,4 ,8 },
-                                        {3 ,4 ,1 ,6 ,8 ,9 ,7 ,5 ,2 },
-                                        {5 ,9 ,3 ,4 ,6 ,8 ,2 ,7 ,1 },
-                                        {4 ,7 ,2 ,5 ,1 ,3 ,6 ,8 ,9 },
-                                        {6 ,1 ,8 ,9 ,7 ,2 ,4 ,3 ,5 },
-                                        {7 ,8 ,6 ,2 ,3 ,5 ,9 ,1 ,4 },
-                                        {1 ,5 ,4 ,7 ,9 ,6 ,8 ,2 ,3 },
-                                        {2 ,3 ,9 ,8 ,4 ,1 ,5 ,6 ,7 }};
-
-        return baseBoard;
-    }
-
-    private boolean generateSolvedBoard() {
-        int[][] solvedBoard = generateEmptyBoard(9,0);
-
-
-        return resultBoard;
+    public void loadNewBoard(){
+        sudokuBoard = BoardUtils.generateSolvedBoard();
+        updateBoardModel();
     }
 
 
-    public void updateBoardModel(){
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                SudokuAppController.boardModel[i][j].set(String.valueOf(sudokuBoard[i][j]));
-            }
-        }
-    }
+
+
+
+
 
     //---------------------------------------------------------------------------
 
@@ -93,11 +53,30 @@ public class Board {
 
     //---------------------------------------------------------------------------
 
-    /*
-    @param rowNumber --> number of row to search starting from the top counting from zero
-    @param containsNumber --> the number to check for within the row
-    @return returns true if the row contains the number and false otherwise
-     */
+    private Boolean isValidBoard(){
+        boolean isValid = true;
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (!isValidTile(i,j)) isValid = false;
+            }
+        }
+
+        return isValid;
+    }
+
+    private Boolean isValidTile(int rowNumber, int columnNumber){
+        boolean isValid = true;
+        int tileValue = sudokuBoard[rowNumber][columnNumber];
+
+        if (rowContains(rowNumber, tileValue)) isValid = false;
+        if (columnContains(columnNumber, tileValue)) isValid = false;
+        if (subgridContains(columnNumber, rowNumber, tileValue)) isValid = false;
+
+        return isValid;
+    }
+
+
     private Boolean rowContains(int rowNumber, int containsNumber) {
         for(int i=0; i<boardSize; i++) {
             if(sudokuBoard[rowNumber][i] == containsNumber){
@@ -115,6 +94,7 @@ public class Board {
         }
         return false;
     }
+
 
     private Boolean subgridContains(int rowNumber, int columnNumber, int containsNumber) {
         int subgridRow = rowNumber / subgridSize;
@@ -140,6 +120,7 @@ public class Board {
     private Boolean isValid(int rowNumber, int columnNumber, int containsNumber){
         return !rowContains(rowNumber, containsNumber) && !columnContains(columnNumber, containsNumber) && !subgridContains(rowNumber, columnNumber, containsNumber);
     }
+
 
     public void printBoard(){
         for(int i = 0; i < sudokuBoard.length; i++){
@@ -167,7 +148,13 @@ public class Board {
     }
 
 
-
+    public void updateBoardModel(){
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                SudokuAppController.boardModel[i][j].set(String.valueOf(sudokuBoard[i][j]));
+            }
+        }
+    }
 
 
     @Override

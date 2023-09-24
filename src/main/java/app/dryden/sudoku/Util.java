@@ -1,8 +1,13 @@
 package app.dryden.sudoku;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 
 public class Util {
+
+    static Random random = new Random();
+
 
     public static ArrayList<Integer> generateRandomNumberArray(int size){
         ArrayList<Integer> numbers = new ArrayList<>();
@@ -19,9 +24,17 @@ public class Util {
         return result;
     }
 
-   public static Boolean isPerfectSquare(int x)
+    public static Boolean isPerfectSquare(int x)
     {
         int s = (int) Math.sqrt(x);
         return (s*s == x);
+    }
+
+    public static int getRandomCoefficient(){
+        return getRandomBool() ? -1 : 1;
+    }
+
+    public static boolean getRandomBool(){
+        return random.nextBoolean();
     }
 }

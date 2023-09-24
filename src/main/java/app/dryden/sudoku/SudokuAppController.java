@@ -23,11 +23,13 @@ public class SudokuAppController {
 
         boardModel = new StringProperty[BOARD_SIZE][BOARD_SIZE];
 
-        Board board = new Board(0,9);
-
         buildBoardModel(BOARD_SIZE);
         buildBoard(BOARD_SIZE);
 
+    }
+
+    public void generateNewBoard(){
+        SudokuApplication.board.loadNewBoard();
     }
 
     private void buildBoardModel(int size) {
@@ -41,7 +43,7 @@ public class SudokuAppController {
 
     public void buildBoard(int size){
 
-        if (Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
+        if (!Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
         if (size < 4) throw new IllegalArgumentException("Board size must be at least 4");
 
         int subGridCount = (int) Math.sqrt(size);
@@ -102,9 +104,6 @@ public class SudokuAppController {
         }
     }
 
-    public void generateNewBoard(){
-
-    }
 
     EventHandler<MouseEvent> gameTileClickedHandler = event -> {
         currentTile.getStyleClass().remove("sudoku-tile-editing");

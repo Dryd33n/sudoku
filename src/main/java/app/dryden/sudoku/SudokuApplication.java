@@ -10,13 +10,15 @@ import java.io.IOException;
 
 public class SudokuApplication extends Application {
 
-
+    public static Board board;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SudokuApplication.class.getResource("sudoku.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 440, 580);
         scene.setOnKeyTyped(SudokuAppController.keyPressedHandler);
+
+        board = new Board(9);
 
 
         stage.setResizable(false);
@@ -26,6 +28,10 @@ public class SudokuApplication extends Application {
     }
 
     public static void main(String[] args) {
+
+
         launch();
+
+
     }
 }
