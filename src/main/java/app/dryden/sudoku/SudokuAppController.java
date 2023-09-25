@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
@@ -28,6 +29,7 @@ public class SudokuAppController {
     public Label sudokuTimer;
 
     public static int secondsElapsed = 0;
+    public AnchorPane settingsPanel;
 
 
     public void initialize(){
@@ -39,6 +41,16 @@ public class SudokuAppController {
 
         buildBoardModel(BOARD_SIZE);
         buildBoard(BOARD_SIZE);
+    }
+
+    public void openSettingsPanel(){
+        settingsPanel.setDisable(false);
+        settingsPanel.setVisible(true);
+    }
+
+    public void closeSettingsPanel(){
+        settingsPanel.setDisable(true);
+        settingsPanel.setVisible(false);
     }
 
     public void generateNewBoard(){

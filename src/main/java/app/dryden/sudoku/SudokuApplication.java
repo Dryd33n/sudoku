@@ -1,17 +1,12 @@
 package app.dryden.sudoku;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static app.dryden.sudoku.SudokuAppController.timeString;
 
 public class SudokuApplication extends Application {
 
