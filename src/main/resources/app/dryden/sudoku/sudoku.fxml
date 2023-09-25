@@ -59,7 +59,7 @@
                 </AnchorPane>
                 <HBox prefHeight="31.0" prefWidth="438.0">
                     <children>
-                        <Label prefHeight="26.0" prefWidth="215.0" text="Time 0:00" textFill="#b3dec1">
+                        <Label fx:id="sudokuTimer" prefHeight="26.0" prefWidth="215.0" text="Time 0:00" textFill="#b3dec1">
                             <font>
                                 <Font name="Segoe UI Semibold" size="17.0" />
                             </font>

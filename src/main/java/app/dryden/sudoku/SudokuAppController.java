@@ -1,5 +1,6 @@
 package app.dryden.sudoku;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
@@ -8,6 +9,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SudokuAppController {
 
@@ -15,8 +21,13 @@ public class SudokuAppController {
 
     public static Label currentTile = new Label();
     public static StringProperty[][] boardModel;
-    public static Boolean[][] protectedTiles;
 
+    public static StringProperty timeString = new SimpleStringProperty("Time: 0:00");
+
+    public static ArrayList<Pair<Integer,Integer>> protectedTilesList = new ArrayList<>();
+    public Label sudokuTimer;
+
+    public static int secondsElapsed = 0;
 
 
     public void initialize(){
@@ -24,19 +35,26 @@ public class SudokuAppController {
 
         boardModel = new StringProperty[BOARD_SIZE][BOARD_SIZE];
 
+        sudokuTimer.textProperty().bind(timeString);
+
         buildBoardModel(BOARD_SIZE);
         buildBoard(BOARD_SIZE);
-
     }
 
     public void generateNewBoard(){
         SudokuApplication.board.loadNewBoard();
+        setProtectedTiles();
+
+        Timer timer = new Timer();
+        secondsElapsed = 0;
+        timer.purge();
+        timer.schedule(updateTimerString, 1000L, 1000L);
     }
 
     private void buildBoardModel(int size) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                boardModel[i][j] = new SimpleStringProperty(String.valueOf(size));
+                boardModel[i][j] = new SimpleStringProperty(String.valueOf("0"));
             }
         }
     }
@@ -47,13 +65,8 @@ public class SudokuAppController {
         if (!Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
         if (size < 4) throw new IllegalArgumentException("Board size must be at least 4");
 
-        int subGridCount = (int) Math.sqrt(size);
-        String[] gridColors = new String[]{"#0F1F1E", "#01121A","#291A29","#080307"};
-
         boardFrame.applyCss();
         boardFrame.layout();
-
-        System.out.println(boardFrame);
 
         double boardWidth = 378;// boardFrame.getWidth();
         double boardHeight = 378;//boardFrame.getHeight();
@@ -67,44 +80,63 @@ public class SudokuAppController {
 
             for (int j = 0; j < size; j++) {
                 Label cell = new Label();
-                int colorIndex;
-                String styleString;
-                cell.setMinSize(cellWidth, cellHeight);
-                cell.textProperty().bind(boardModel[i][j]);
+
+                cell.setId("gameTile" + i + j); // set tile id
+                cell.setMinSize(cellWidth, cellHeight); //set tile min size
+                cell.textProperty().bind(boardModel[i][j]); //bind tile text to board model
+                cell.setOnMouseClicked(gameTileClickedHandler); //set click handler
                 cell.getStyleClass().add("sudoku-tile");
-                cell.textProperty().bind(boardModel[i][j]);
-                cell.setOnMouseClicked(gameTileClickedHandler);
-                cell.setId("gameTile" + i + j);
 
 
-                if((Math.floorDiv(i,subGridCount) + Math.floorDiv(j,subGridCount)) % 2 == 1){//is on an odd subgrid
-                    if(((i+j) % 2) == 1){//is on an odd tile
-                        colorIndex = 0;
-                    }else{
-                        colorIndex = 1;
-                    }
-                }else{
-                    if(((i+j) % 2) == 1){
-                        colorIndex = 2;
-                    }else{
-                        colorIndex = 3;
-                    }
-                }
-
-                styleString = "-fx-background-color: " + gridColors[colorIndex] + ";";
-
-                if(i == 0 && j == 0) styleString += "-fx-background-radius: 10 0 0 0;";
-                else if(i == 0 && j == size - 1) styleString += "-fx-background-radius: 0 10 0 0;";
-                else if(i == size - 1 && j == 0) styleString += "-fx-background-radius: 0 0 0 10;";
-                else if(i == size - 1 && j == size - 1) styleString += "-fx-background-radius: 0 0 10 0;";
-
-                cell.setStyle(styleString);
+                cell.setStyle(Util.getStyleString(size, i, j));
                 row.getChildren().add(cell);
 
             }
         }
     }
+    
+    public void setProtectedTiles(){
+        for ( Pair<Integer,Integer> pair: protectedTilesList) {
+            Label label = (Label) boardFrame.lookup("#gameTile"+pair.getKey()+pair.getValue());
 
+            label.getStyleClass().remove("sudoku-tile-protected");
+        }
+
+        protectedTilesList = SudokuApplication.board.getProtectedTiles();
+
+        for ( Pair<Integer,Integer> pair: protectedTilesList) {
+            Label label = (Label) boardFrame.lookup("#gameTile"+pair.getKey()+pair.getValue());
+
+            label.getStyleClass().add("sudoku-tile-protected");
+        }
+    }
+
+
+    static TimerTask updateTimerString = new TimerTask() {
+
+
+
+
+
+        @Override
+        public void run() {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    secondsElapsed++;
+
+                    int minutes = Math.floorDiv(secondsElapsed, 60);
+                    int seconds = secondsElapsed % 60;
+                    String secondsOut;
+
+                    if(String.valueOf(seconds).length() == 1) secondsOut = "0" + String.valueOf(seconds);
+                    else secondsOut = String.valueOf(seconds);
+
+                    timeString.set("Time: " + minutes + ":" + secondsOut);
+                }
+            });
+        };
+    };
 
     EventHandler<MouseEvent> gameTileClickedHandler = event -> {
         Label newTile = (Label) event.getSource();
@@ -126,8 +158,10 @@ public class SudokuAppController {
 
 
         if(event.getCharacter().matches("[1-9]")){
-            boardModel[currentTileRow][currentTileCol].set(String.valueOf(key));
+           SudokuApplication.board.setTile(currentTileRow,currentTileCol,Integer.parseInt(key));
         }
     };
+
+
 
 }

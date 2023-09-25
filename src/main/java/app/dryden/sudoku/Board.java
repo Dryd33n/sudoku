@@ -1,5 +1,10 @@
 package app.dryden.sudoku;
 
+import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.TimerTask;
+
 public class Board extends BoardUtils {
     protected int[][] sudokuBoard;
     protected boolean[][] protectedTiles = BoardUtils.getBoolMatrix(true);
@@ -18,13 +23,13 @@ public class Board extends BoardUtils {
 
 
 
-    public Board(int value, int size){
+    public Board(int size, int value){
         if(!Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
         if(value > size || value < 0) throw new IllegalArgumentException("Value must be between 0 and size");
 
         boardSize = size;
         subgridSize = (int) Math.sqrt(size);
-        sudokuBoard = generateUnsolvedBoard(10);
+        sudokuBoard = generateEmptyBoard(9,9 );
         protectedTiles = BoardUtils.getBoolMatrix(false);
         updateBoardModel();
     }
@@ -36,14 +41,14 @@ public class Board extends BoardUtils {
         boardSize = size;
 
         sudokuBoard = BoardUtils.generateUnsolvedBoard(15);
-        getProtectedTiles();
+        updateProtectedTiles();
         updateBoardModel();
     }
 
 
     public void loadNewBoard(){
         sudokuBoard = BoardUtils.generateUnsolvedBoard(15);
-        getProtectedTiles();
+        updateProtectedTiles();
         updateBoardModel();
     }
 
@@ -132,6 +137,30 @@ public class Board extends BoardUtils {
 
 
 
+    //---------------------------------------------------------------------------
+
+    //                        GETTERS AND SETTERS
+
+    //---------------------------------------------------------------------------
+
+    public void setTile(int rowNumber, int columnNumber, int value){
+        sudokuBoard[rowNumber][columnNumber] = value;
+        SudokuAppController.boardModel[rowNumber][columnNumber].set(String.valueOf(value));
+    }
+
+    public ArrayList<Pair<Integer, Integer>> getProtectedTiles(){
+
+        ArrayList<Pair<Integer, Integer>> protectedTilesList = new ArrayList<>();
+
+        for (int i = 0; i < protectedTiles.length; i++) {
+            for (int j = 0; j < protectedTiles[0].length; j++) {
+                if(protectedTiles[i][j]) protectedTilesList.add(new Pair<>(i,j));
+            }
+        }
+
+        return protectedTilesList;
+    }
+
 
     //---------------------------------------------------------------------------
 
@@ -150,16 +179,18 @@ public class Board extends BoardUtils {
             }
         }
 
-        getProtectedTiles();
+        updateProtectedTiles();
     }
 
-    public void getProtectedTiles(){
+    public void updateProtectedTiles(){
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 protectedTiles[i][j] = sudokuBoard[i][j] != 0;
             }
         }
     }
+
+
 
 
     public void printBoard(){

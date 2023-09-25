@@ -27,3 +27,11 @@
     -fx-border-width: 2px;
     -fx-border-color: #FF0000;
 }
+
+.sudoku-tile-protected {
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+    -fx-text-fill: #a0a0a0;
+    -fx-font-weight: bolder;
+
+}
