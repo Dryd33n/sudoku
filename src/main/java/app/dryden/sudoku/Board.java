@@ -2,18 +2,16 @@ package app.dryden.sudoku;
 
 import javafx.util.Pair;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TimerTask;
 
 public class Board extends BoardUtils {
 
     protected int[][] sudokuBoard;//current sudoku board
     int[][] generatedBoard = BoardUtils.generateEmptyBoard(9,1);//recent board used for reset
     protected boolean[][] protectedTiles = BoardUtils.getBoolMatrix(true);//locked tiles that should not be changeable
-    protected int boardSize;
-    protected int subgridSize;
+    protected int boardSize = 9;
+    protected int subgridSize = 3;
 
 
     protected int difficulty = 0; // 0 = easy, 1 = medium, 2 = hard
@@ -33,27 +31,25 @@ public class Board extends BoardUtils {
 
 
 
-    public Board(int size, int value){
-        if(!Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
-        if(value > size || value < 0) throw new IllegalArgumentException("Value must be between 0 and size");
-
-        boardSize = size;
-        subgridSize = (int) Math.sqrt(size);
-        sudokuBoard = generateEmptyBoard(9,9 );
+    public Board(int value){
+        sudokuBoard = generateEmptyBoard(9,value );
         protectedTiles = BoardUtils.getBoolMatrix(false);
         updateBoardModel();
     }
 
-    public Board(int size){
-        if(!Util.isPerfectSquare(size)) throw new IllegalArgumentException("Size must be a perfect square");
-
-        subgridSize = (int) Math.sqrt(size);
-        boardSize = size;
-
+    public Board(){
         sudokuBoard = BoardUtils.generateUnsolvedBoard(difficultyConfig.get(difficulty));
         updateProtectedTiles();
         updateBoardModel();
     }
+
+    public Board(int style, int nothing){
+        sudokuBoard = BoardUtils.generateFancyBoard(style);
+        protectedTiles = BoardUtils.getBoolMatrix(false);
+        updateBoardModel();
+    }
+
+
 
 
 

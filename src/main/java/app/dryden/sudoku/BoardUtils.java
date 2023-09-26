@@ -5,6 +5,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 public class BoardUtils {
     //---------------------------------------------------------------------------
 
@@ -12,7 +13,29 @@ public class BoardUtils {
 
     //---------------------------------------------------------------------------
 
+    public static int[][] generateFancyBoard(int style){
+        int[][] board = new int[9][9];
 
+        switch(style) {
+            case 0:
+                board = generateDiagonal();
+        }
+
+        return board;
+    }
+
+    public static int[][] generateDiagonal() {
+        int[][] board = new int[9][9];
+        int nums[] = new int[]{9,8,7,6,5,4,3,2,1,2,3,4,5,6,7,8,9};
+        int j = 8;
+
+        for (int i = 0; i < 9; i++) {
+            System.arraycopy(nums, j,board[i], 0 , 9);
+            j--;
+        }
+
+        return board;
+    }
 
 
     public static int[][] generateEmptyBoard(int size, int value) {
@@ -58,8 +81,7 @@ public class BoardUtils {
 
     public static int[][] generateUnsolvedBoard(int startingTiles){
         int[][] board = generateSolvedBoard();
-        int[][] unsolvedBoard = pokeHoles(board, 81 - startingTiles);
-        return unsolvedBoard;
+        return pokeHoles(board, 81 - startingTiles);
     }
 
 
@@ -87,10 +109,41 @@ public class BoardUtils {
 
 
     public static int[][] pokeHoles(int[][] board, int holeCount){
+        ArrayList<Pair<Integer,Integer>> remainderSubgrids = new ArrayList<>();
+        int holesPerSubgrid = Math.floorDiv(holeCount,9);
+        int remainder = holeCount % 9;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                remainderSubgrids.add(new Pair<>(i,j));
+            }
+        }
+
+        Collections.shuffle(remainderSubgrids);
+
+        for (int i = remainderSubgrids.size(); i > remainder; i--) {
+            remainderSubgrids.remove(i-1);
+        }
+
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if(remainderSubgrids.contains(new Pair<>(i,j))){
+                    board = pokeHolesInSubgrid(board,  holesPerSubgrid + 1,i, j);
+                }else{
+                    board = pokeHolesInSubgrid(board, holesPerSubgrid, i, j);
+                }
+            }
+        }
+
+        return board;
+    }
+
+    public static int[][] pokeHolesInSubgrid(int[][] board, int holeCount, int subgridRow, int subgridCol){
         ArrayList<Pair<Integer,Integer>> tileCoordinates = new ArrayList<>();
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j <3; j++) {
                 tileCoordinates.add(new Pair<>(i,j));
             }
         }
@@ -98,7 +151,7 @@ public class BoardUtils {
         Collections.shuffle(tileCoordinates);
 
         for (int i = 0; i < holeCount; i++) {
-            board[tileCoordinates.get(i).getKey()][tileCoordinates.get(i).getValue()] = 0;
+            board[tileCoordinates.get(i).getKey() + subgridRow*3][tileCoordinates.get(i).getValue() + subgridCol*3] = 0;
         }
 
         return board;
@@ -134,7 +187,7 @@ public class BoardUtils {
     }
 
 
-    @SuppressWarnings("DataFlowIssue")
+    @SuppressWarnings({"DataFlowIssue", "ReassignedVariable"})
     public static int[][] shuffleSubgridRows(int[][] board, int subgridIndex) {
         board = shuffleRow(board, (3 * subgridIndex) + 1, (3 * subgridIndex) + 1 + Util.getRandomCoefficient());
         board = shuffleRow(board, 3 * subgridIndex, (3 * subgridIndex) + 2);
@@ -146,7 +199,7 @@ public class BoardUtils {
     }
 
 
-    @SuppressWarnings("DataFlowIssue")
+    @SuppressWarnings({"DataFlowIssue", "ReassignedVariable"})
     public static int[][] shuffleSubgridColumns(int[][] board, int subgridIndex) {
         board = shuffleColumn(board, (3 * subgridIndex) + 1, (3 * subgridIndex) + 1 + Util.getRandomCoefficient());
         board = shuffleColumn(board, 3 * subgridIndex, (3 * subgridIndex) + 2);
@@ -158,4 +211,44 @@ public class BoardUtils {
     }
 
 
+    static String[] getBoardColours(String theme){
+        return switch (theme) {
+            case "rusted-car" -> new String[]{"#1F0F0F", "#1A0101", "#1A2229", "#030508"};
+            case "handsworth" -> new String[]{"#121233", "#050320", "#49401D", "#0C0A04"};
+            case "cherry-blossom" -> new String[]{"#542A54", "#2F0C37", "#163629", "#062F27"};
+            case "ocean" -> new String[]{"#185960", "#0D3545", "#142F2C", "#08200E"};
+            case "sunset" -> new String[]{"#C02222", "#AB0030", "#8D11A6", "#602FC0"};
+            default -> new String[]{"#0F1F1E", "#01121A", "#291A29", "#080307"};
+        };
+
+    }
+
+    static String getStyleString(int size, int rowIndex, int colIndex, String theme) {
+        String[] gridColors = getBoardColours(theme); // Odd subgrid Even Tile, Odd subgrid Odd Tile, Even Subgrid Odd Tile, Even Subgrid Even Tile.
+        int colorIndex;
+        int subGridCount = (int) Math.sqrt(size);
+        String styleString;
+
+        if((Math.floorDiv(rowIndex, subGridCount) + Math.floorDiv(colIndex, subGridCount)) % 2 == 1){//is on an odd subgrid
+            if(((rowIndex + colIndex) % 2) == 1){//is on an odd tile
+                colorIndex = 0;
+            }else{
+                colorIndex = 1;
+            }
+        }else{
+            if(((rowIndex + colIndex) % 2) == 1){
+                colorIndex = 2;
+            }else{
+                colorIndex = 3;
+            }
+        }
+
+        styleString = "-fx-background-color: " + gridColors[colorIndex] + ";";
+
+        if(rowIndex == 0 && colIndex == 0) styleString += "-fx-background-radius: 10 0 0 0;";
+        else if(rowIndex == 0 && colIndex == size - 1) styleString += "-fx-background-radius: 0 10 0 0;";
+        else if(rowIndex == size - 1 && colIndex == 0) styleString += "-fx-background-radius: 0 0 0 10;";
+        else if(rowIndex == size - 1 && colIndex == size - 1) styleString += "-fx-background-radius: 0 0 10 0;";
+        return styleString;
+    }
 }

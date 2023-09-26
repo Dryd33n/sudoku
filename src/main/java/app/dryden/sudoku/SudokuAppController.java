@@ -125,7 +125,7 @@ public class SudokuAppController {
                 cell.getStyleClass().add("sudoku-tile");
 
 
-                cell.setStyle(Util.getStyleString(size, i, j, "royal-forest"));
+                cell.setStyle(BoardUtils.getStyleString(size, i, j, "royal-forest"));
                 row.getChildren().add(cell);
 
             }
@@ -137,7 +137,7 @@ public class SudokuAppController {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 Label cell = (Label) boardFrame.lookup("#gameTile" + i + j);
-                String styleString = Util.getStyleString(9, i, j, theme);
+                String styleString = BoardUtils.getStyleString(9, i, j, theme);
                 cell.setStyle(styleString);
             }
         }
