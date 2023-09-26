@@ -7,6 +7,7 @@ import java.util.Collections;
 
 public class BoardUtils {
 
+    public static int[][] lastUnsolvedBoard;
 
 
 
@@ -63,7 +64,8 @@ public class BoardUtils {
 
     public static int[][] generateUnsolvedBoard(int startingTiles){
         int[][] board = generateSolvedBoard();
-        return pokeHoles(board, 81 - startingTiles);
+        int[][] unsolvedBoard = pokeHoles(board, 81 - startingTiles);
+        return unsolvedBoard;
     }
 
 
