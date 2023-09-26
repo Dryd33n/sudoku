@@ -139,7 +139,7 @@
                         </Pane>
                      </children>
                   </HBox>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="124.0" styleClass="gameButton" text="RESTART" textFill="#000002">
+                        <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#resetBoard" prefHeight="50.0" prefWidth="124.0" styleClass="gameButton" text="RESTART" textFill="#000002">
                             <font>
                                 <Font name="SansSerif Regular" size="16.0" />
                             </font>
@@ -187,7 +187,7 @@
                 </HBox>
             </children>
         </VBox>
-      <AnchorPane fx:id="settingsPanel" prefHeight="98.0" prefWidth="129.0" style="-fx-translate-x: 14; -fx-translate-y: 140; -fx-background-radius: 13; -fx-border-radius: 10; -fx-border-width: 2px; -fx-border-color: #393c9b; -fx-background-color: #000000;">
+      <AnchorPane fx:id="settingsPanel" disable="true" prefHeight="98.0" prefWidth="129.0" style="-fx-translate-x: 14; -fx-translate-y: 140; -fx-background-radius: 13; -fx-border-radius: 10; -fx-border-width: 2px; -fx-border-color: #393c9b; -fx-background-color: #000000;" visible="false">
          <children>
             <VBox prefHeight="86.0" prefWidth="122.0">
                <children>

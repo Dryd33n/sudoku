@@ -9,6 +9,8 @@ import java.util.TimerTask;
 
 public class Board extends BoardUtils {
     protected int[][] sudokuBoard;
+
+    protected int[][] generatedBoard;
     protected boolean[][] protectedTiles = BoardUtils.getBoolMatrix(true);
     protected int boardSize;
     protected int subgridSize;
@@ -35,6 +37,7 @@ public class Board extends BoardUtils {
         boardSize = size;
         subgridSize = (int) Math.sqrt(size);
         sudokuBoard = generateEmptyBoard(9,9 );
+        generatedBoard = sudokuBoard;
         protectedTiles = BoardUtils.getBoolMatrix(false);
         updateBoardModel();
     }
@@ -46,6 +49,7 @@ public class Board extends BoardUtils {
         boardSize = size;
 
         sudokuBoard = BoardUtils.generateUnsolvedBoard(difficultyConfig.get(difficulty));
+        generatedBoard = sudokuBoard;
         updateProtectedTiles();
         updateBoardModel();
     }
@@ -53,6 +57,12 @@ public class Board extends BoardUtils {
 
     public void loadNewBoard(){
         sudokuBoard = BoardUtils.generateUnsolvedBoard(difficultyConfig.get(difficulty));
+        updateProtectedTiles();
+        updateBoardModel();
+    }
+
+    public void resetBoard(){
+        sudokuBoard = generatedBoard;
         updateProtectedTiles();
         updateBoardModel();
     }

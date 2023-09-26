@@ -16,10 +16,14 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class SudokuAppController {
 
     public VBox boardFrame;
+
+
 
     public static Label currentTile = new Label();
     public static StringProperty[][] boardModel;
@@ -35,6 +39,8 @@ public class SudokuAppController {
     public Pane difficultyButton1;
     public Pane difficultyButton2;
 
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
 
     public void initialize(){
         int BOARD_SIZE = 9;
@@ -42,6 +48,8 @@ public class SudokuAppController {
         boardModel = new StringProperty[BOARD_SIZE][BOARD_SIZE];
 
         sudokuTimer.textProperty().bind(timeString);
+
+        closeSettingsPanel();
 
         buildBoardModel(BOARD_SIZE);
         buildBoard(BOARD_SIZE);
@@ -108,11 +116,13 @@ public class SudokuAppController {
     public void generateNewBoard(){
         SudokuApplication.board.loadNewBoard();
         setProtectedTiles();
+        startTimer();
+    }
 
-        Timer timer = new Timer();
-        secondsElapsed = 0;
-        timer.purge();
-        timer.schedule(updateTimerString, 1000L, 1000L);
+    public void resetBoard(){
+        SudokuApplication.board.resetBoard();
+        setProtectedTiles();
+        startTimer();
     }
 
     private void buildBoardModel(int size) {
@@ -175,24 +185,34 @@ public class SudokuAppController {
         }
     }
 
+    public void startTimer(){
+        scheduler.shutdown();
+        scheduler = Executors.newScheduledThreadPool(1);
 
-    static TimerTask updateTimerString = new TimerTask() {
-        @Override
-        public void run() {
-            Platform.runLater(() -> {
-                secondsElapsed++;
+        secondsElapsed = 0;
+        timeString.set("Time: 0:00");
 
-                int minutes = Math.floorDiv(secondsElapsed, 60);
-                int seconds = secondsElapsed % 60;
-                String secondsOut;
 
-                if(String.valueOf(seconds).length() == 1) secondsOut = "0" + seconds;
-                else secondsOut = String.valueOf(seconds);
+        scheduler.scheduleAtFixedRate(new subTimer(), 1000L, 1000L, java.util.concurrent.TimeUnit.MILLISECONDS);
+    }
 
-                timeString.set("Time: " + minutes + ":" + secondsOut);
-            });
-        }
-    };
+    private static class subTimer extends TimerTask {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    secondsElapsed++;
+
+                    int minutes = Math.floorDiv(secondsElapsed, 60);
+                    int seconds = secondsElapsed % 60;
+                    String secondsOut;
+
+                    if (String.valueOf(seconds).length() == 1) secondsOut = "0" + seconds;
+                    else secondsOut = String.valueOf(seconds);
+
+                    timeString.set("Time: " + minutes + ":" + secondsOut);
+                });
+            }
+    }
 
     EventHandler<MouseEvent> gameTileClickedHandler = event -> {
         Label newTile = (Label) event.getSource();
