@@ -2,7 +2,9 @@ package app.dryden.sudoku;
 
 import javafx.util.Pair;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.TimerTask;
 
 public class Board extends BoardUtils {
@@ -11,6 +13,9 @@ public class Board extends BoardUtils {
     protected int boardSize;
     protected int subgridSize;
 
+    protected int difficulty = 0; // 0 = easy, 1 = medium, 2 = hard
+
+    protected ArrayList<Integer> difficultyConfig = new ArrayList<>(Arrays.asList(30, 22, 17)); // number of tiles to start with for each difficulty
 
 
 
@@ -40,14 +45,14 @@ public class Board extends BoardUtils {
         subgridSize = (int) Math.sqrt(size);
         boardSize = size;
 
-        sudokuBoard = BoardUtils.generateUnsolvedBoard(15);
+        sudokuBoard = BoardUtils.generateUnsolvedBoard(difficultyConfig.get(difficulty));
         updateProtectedTiles();
         updateBoardModel();
     }
 
 
     public void loadNewBoard(){
-        sudokuBoard = BoardUtils.generateUnsolvedBoard(15);
+        sudokuBoard = BoardUtils.generateUnsolvedBoard(difficultyConfig.get(difficulty));
         updateProtectedTiles();
         updateBoardModel();
     }
@@ -159,6 +164,10 @@ public class Board extends BoardUtils {
         }
 
         return protectedTilesList;
+    }
+
+    public void setDifficulty(int difficulty){
+        this.difficulty = difficulty;
     }
 
 

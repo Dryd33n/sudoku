@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
@@ -30,6 +31,9 @@ public class SudokuAppController {
 
     public static int secondsElapsed = 0;
     public AnchorPane settingsPanel;
+    public Pane difficultyButton0;
+    public Pane difficultyButton1;
+    public Pane difficultyButton2;
 
 
     public void initialize(){
@@ -53,6 +57,54 @@ public class SudokuAppController {
         settingsPanel.setVisible(false);
     }
 
+    public void setDifficultyEasy(){
+        setDifficulty(0);
+    }
+
+    public void setDifficultyMedium(){
+        setDifficulty(1);
+    }
+
+    public void setDifficultyHard(){
+        setDifficulty(2);
+    }
+
+
+    public void setDifficulty(int difficulty){
+
+        difficultyButton0.getStyleClass().clear();
+        difficultyButton1.getStyleClass().clear();
+        difficultyButton2.getStyleClass().clear();
+
+
+        difficultyButton0.getStyleClass().add("gameButton");
+        difficultyButton1.getStyleClass().add("gameButton");
+        difficultyButton2.getStyleClass().add("gameButton");
+
+
+
+
+        switch (difficulty) {
+            case (0) -> {
+                difficultyButton0.getStyleClass().remove("gameButton");
+                difficultyButton0.getStyleClass().add("difficulty-button-selected");
+                SudokuApplication.board.setDifficulty(0);
+            }
+            case (1) -> {
+                difficultyButton1.getStyleClass().remove("gameButton");
+                difficultyButton1.getStyleClass().add("difficulty-button-selected");
+                SudokuApplication.board.setDifficulty(1);
+            }
+            case (2) -> {
+                difficultyButton2.getStyleClass().remove("gameButton");
+                difficultyButton2.getStyleClass().add("difficulty-button-selected");
+                SudokuApplication.board.setDifficulty(2);
+            }
+            default -> {
+            }
+        }
+    }
+
     public void generateNewBoard(){
         SudokuApplication.board.loadNewBoard();
         setProtectedTiles();
@@ -66,7 +118,7 @@ public class SudokuAppController {
     private void buildBoardModel(int size) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                boardModel[i][j] = new SimpleStringProperty(String.valueOf("0"));
+                boardModel[i][j] = new SimpleStringProperty("0");
             }
         }
     }
@@ -125,29 +177,21 @@ public class SudokuAppController {
 
 
     static TimerTask updateTimerString = new TimerTask() {
-
-
-
-
-
         @Override
         public void run() {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    secondsElapsed++;
+            Platform.runLater(() -> {
+                secondsElapsed++;
 
-                    int minutes = Math.floorDiv(secondsElapsed, 60);
-                    int seconds = secondsElapsed % 60;
-                    String secondsOut;
+                int minutes = Math.floorDiv(secondsElapsed, 60);
+                int seconds = secondsElapsed % 60;
+                String secondsOut;
 
-                    if(String.valueOf(seconds).length() == 1) secondsOut = "0" + String.valueOf(seconds);
-                    else secondsOut = String.valueOf(seconds);
+                if(String.valueOf(seconds).length() == 1) secondsOut = "0" + seconds;
+                else secondsOut = String.valueOf(seconds);
 
-                    timeString.set("Time: " + minutes + ":" + secondsOut);
-                }
+                timeString.set("Time: " + minutes + ":" + secondsOut);
             });
-        };
+        }
     };
 
     EventHandler<MouseEvent> gameTileClickedHandler = event -> {
