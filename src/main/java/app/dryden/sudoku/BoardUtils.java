@@ -7,6 +7,9 @@ import java.util.Collections;
 
 
 public class BoardUtils {
+    public static final int subgridSize = 3;
+
+
     //---------------------------------------------------------------------------
 
     //                           BOARD BUILDERS
@@ -14,24 +17,52 @@ public class BoardUtils {
     //---------------------------------------------------------------------------
 
     public static int[][] generateFancyBoard(int style){
-        int[][] board = new int[9][9];
 
         switch(style) {
             case 0:
-                board = generateDiagonal();
+                return generateDiagonal();
+            case 1:
+                return generateFilledSubgrid();
+            case 2:
+                int value = Util.randonNumBetween(1,9);
+                return generateEmptyBoard(9,value);
+        }
+
+        return generateEmptyBoard(9,0);
+    }
+
+    public static int[][] generateDiagonal() {
+        int[][] board = new int[9][9];
+        int[] numbs = new int[]{9,8,7,6,5,4,3,2,1,2,3,4,5,6,7,8,9};
+        int j = 8;
+
+        for (int i = 0; i < 9; i++) {
+            System.arraycopy(numbs, j,board[i], 0 , 9);
+            j--;
         }
 
         return board;
     }
 
-    public static int[][] generateDiagonal() {
+    public static int[][] generateFilledSubgrid(){
+        int k = 1;
         int[][] board = new int[9][9];
-        int nums[] = new int[]{9,8,7,6,5,4,3,2,1,2,3,4,5,6,7,8,9};
-        int j = 8;
 
-        for (int i = 0; i < 9; i++) {
-            System.arraycopy(nums, j,board[i], 0 , 9);
-            j--;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board = fillSubgrid(board, k, i, j);
+                k++;
+            }
+        }
+
+        return board;
+    }
+
+    public static int[][] fillSubgrid(int[][] board, int value, int subgridRow, int subgridCol){
+        for (int i = subgridRow * 3; i < subgridRow * subgridSize + subgridSize; i++) {
+            for (int j = subgridCol * subgridSize; j < subgridCol * subgridSize + subgridSize; j++) {
+                board[i][j] = value;
+            }
         }
 
         return board;
