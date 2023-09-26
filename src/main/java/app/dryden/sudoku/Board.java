@@ -17,7 +17,7 @@ public class Board extends BoardUtils {
 
 
     protected int difficulty = 0; // 0 = easy, 1 = medium, 2 = hard
-    protected ArrayList<Integer> difficultyConfig = new ArrayList<>(Arrays.asList(30, 22, 17)); // number of tiles to start with for each difficulty
+    protected ArrayList<Integer> difficultyConfig = new ArrayList<>(Arrays.asList(35, 25, 15)); // number of tiles to start with for each difficulty
 
 
 

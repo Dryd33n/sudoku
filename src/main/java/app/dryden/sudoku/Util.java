@@ -38,8 +38,27 @@ public class Util {
     }
 
 
-    static String getStyleString(int size, int rowIndex, int colIndex) {
-        String[] gridColors = new String[]{"#0F1F1E", "#01121A","#291A29","#080307"};
+    static String[] getBoardColours(String theme){
+        switch (theme){
+            case "royal-forest":
+                return new String[]{"#0F1F1E", "#01121A","#291A29","#080307"};
+            case "rusted-car":
+                return new String[]{"#1F0F0F", "#1A0101","#1A2229","#030508"};
+            case "handsworth":
+                return new String[]{"#121233", "#050320","#49401D","#0C0A04"};
+            case "cherry-blossom":
+                return new String[]{"#542A54","#2F0C37","#163629", "#062F27"};
+            case "ocean":
+                return new String[]{"#185960","#0D3545","#142F2C","#08200E"};
+            case "sunset":
+                return new String[]{"#C02222","#AB0030","#8D11A6","#602FC0"};
+
+        }
+
+        return new String[]{"#0F1F1E", "#01121A","#291A29","#080307"};
+    }
+    static String getStyleString(int size, int rowIndex, int colIndex, String theme) {
+        String[] gridColors = getBoardColours(theme); // Odd subgrid Even Tile, Odd subgrid Odd Tile, Even Subgrid Odd Tile, Even Subgrid Even Tile.
         int colorIndex;
         int subGridCount = (int) Math.sqrt(size);
         String styleString;

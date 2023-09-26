@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -126,13 +125,23 @@ public class SudokuAppController {
                 cell.getStyleClass().add("sudoku-tile");
 
 
-                cell.setStyle(Util.getStyleString(size, i, j));
+                cell.setStyle(Util.getStyleString(size, i, j, "royal-forest"));
                 row.getChildren().add(cell);
 
             }
         }
     }
 
+
+    public void reSkinBoard(String theme){
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                Label cell = (Label) boardFrame.lookup("#gameTile" + i + j);
+                String styleString = Util.getStyleString(9, i, j, theme);
+                cell.setStyle(styleString);
+            }
+        }
+    }
     public void setProtectedTiles(){
         for ( Pair<Integer,Integer> pair: protectedTilesList) {//remove styling of old protected tiles
             Label label = (Label) boardFrame.lookup("#gameTile"+pair.getKey()+pair.getValue());
@@ -249,7 +258,6 @@ public class SudokuAppController {
 
         secondsElapsed = 0;
         timeString.set("Time: 0:00");
-
 
         scheduler.scheduleAtFixedRate(new subTimer(), 1000L, 1000L, java.util.concurrent.TimeUnit.MILLISECONDS);
     }
