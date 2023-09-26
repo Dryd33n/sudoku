@@ -6,12 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class BoardUtils {
-
-    public static int[][] lastUnsolvedBoard;
-
-
-
-
     //---------------------------------------------------------------------------
 
     //                           BOARD BUILDERS
@@ -69,9 +63,17 @@ public class BoardUtils {
     }
 
 
+    public static boolean[][] getBoolMatrix(boolean value){
+        boolean[][] boolMatrix = new boolean[9][9];
 
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                boolMatrix[i][j] = value;
+            }
+        }
 
-
+        return boolMatrix;
+    }
 
 
 
@@ -80,6 +82,8 @@ public class BoardUtils {
     //                      BOARD BUILDER HELPER FUNCTIONS
 
     //---------------------------------------------------------------------------
+
+
 
 
     public static int[][] pokeHoles(int[][] board, int holeCount){
@@ -99,8 +103,6 @@ public class BoardUtils {
 
         return board;
     }
-
-
 
 
     public static int[][] shuffleRow(int[][] board, int row_a, int row_b) {
@@ -155,15 +157,5 @@ public class BoardUtils {
         return board;
     }
 
-    public static boolean[][] getBoolMatrix(boolean value){
-        boolean[][] boolMatrix = new boolean[9][9];
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                boolMatrix[i][j] = value;
-            }
-        }
-
-        return boolMatrix;
-    }
 }

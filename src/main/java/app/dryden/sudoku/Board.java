@@ -8,16 +8,19 @@ import java.util.Arrays;
 import java.util.TimerTask;
 
 public class Board extends BoardUtils {
-    protected int[][] sudokuBoard;
 
-    int[][] generatedBoard = BoardUtils.generateEmptyBoard(9,1);
-    protected boolean[][] protectedTiles = BoardUtils.getBoolMatrix(true);
+    protected int[][] sudokuBoard;//current sudoku board
+    int[][] generatedBoard = BoardUtils.generateEmptyBoard(9,1);//recent board used for reset
+    protected boolean[][] protectedTiles = BoardUtils.getBoolMatrix(true);//locked tiles that should not be changeable
     protected int boardSize;
     protected int subgridSize;
 
-    protected int difficulty = 0; // 0 = easy, 1 = medium, 2 = hard
 
+    protected int difficulty = 0; // 0 = easy, 1 = medium, 2 = hard
     protected ArrayList<Integer> difficultyConfig = new ArrayList<>(Arrays.asList(30, 22, 17)); // number of tiles to start with for each difficulty
+
+
+
 
 
 
@@ -53,8 +56,22 @@ public class Board extends BoardUtils {
     }
 
 
+
+
+
+
+    //---------------------------------------------------------------------------
+
+    //                        BOARD MANAGEMENT FUNCTIONS
+
+    //---------------------------------------------------------------------------
+
+
+
+
+
+
     public void loadNewBoard(){
-        System.out.println(sudokuBoard.hashCode() == generatedBoard.hashCode());
         sudokuBoard = BoardUtils.generateUnsolvedBoard(difficultyConfig.get(difficulty));
         generatedBoard = Util.copyIntMatrix(sudokuBoard);
         updateProtectedTiles();
@@ -64,17 +81,9 @@ public class Board extends BoardUtils {
     public void resetBoard(){
         sudokuBoard = generatedBoard;
         generatedBoard = Util.copyIntMatrix(sudokuBoard);
-        System.out.println(sudokuBoard.hashCode() == generatedBoard.hashCode());
         updateProtectedTiles();
         updateBoardModel();
     }
-
-
-
-
-
-
-
 
 
 
@@ -142,13 +151,6 @@ public class Board extends BoardUtils {
         return false;
     }
 
-    public Boolean isProtectedTile(int rowNumber, int columnNumber){
-        return protectedTiles[rowNumber][columnNumber];
-    }
-
-
-
-
 
 
 
@@ -160,10 +162,19 @@ public class Board extends BoardUtils {
 
     //---------------------------------------------------------------------------
 
+
+
+
     public void setTile(int rowNumber, int columnNumber, int value){
         sudokuBoard[rowNumber][columnNumber] = value;
         SudokuAppController.boardModel[rowNumber][columnNumber].set(String.valueOf(value));
     }
+
+
+    public Boolean isProtectedTile(int rowNumber, int columnNumber){
+        return protectedTiles[rowNumber][columnNumber];
+    }
+
 
     public ArrayList<Pair<Integer, Integer>> getProtectedTiles(){
 
@@ -178,9 +189,14 @@ public class Board extends BoardUtils {
         return protectedTilesList;
     }
 
+
     public void setDifficulty(int difficulty){
         this.difficulty = difficulty;
     }
+
+
+
+
 
 
     //---------------------------------------------------------------------------
@@ -203,6 +219,7 @@ public class Board extends BoardUtils {
         updateProtectedTiles();
     }
 
+
     public void updateProtectedTiles(){
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
@@ -210,8 +227,6 @@ public class Board extends BoardUtils {
             }
         }
     }
-
-
 
 
     public void printBoard(){

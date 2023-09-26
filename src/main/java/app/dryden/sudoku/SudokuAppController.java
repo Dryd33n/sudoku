@@ -42,6 +42,39 @@ public class SudokuAppController {
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 
+
+
+    //---------------------------------------------------------------------------
+
+    //                            BOARD CONTROL
+
+    //---------------------------------------------------------------------------
+
+
+
+    public void generateNewBoard(){
+        SudokuApplication.board.loadNewBoard();
+        setProtectedTiles();
+        startTimer();
+    }
+
+    public void resetBoard(){
+        SudokuApplication.board.resetBoard();
+        setProtectedTiles();
+        startTimer();
+    }
+
+
+
+
+
+
+    //---------------------------------------------------------------------------
+
+    //                      USER INTERFACE CONSTRUCTION
+
+    //---------------------------------------------------------------------------
+
     public void initialize(){
         int BOARD_SIZE = 9;
 
@@ -55,75 +88,6 @@ public class SudokuAppController {
         buildBoard(BOARD_SIZE);
     }
 
-    public void openSettingsPanel(){
-        settingsPanel.setDisable(false);
-        settingsPanel.setVisible(true);
-    }
-
-    public void closeSettingsPanel(){
-        settingsPanel.setDisable(true);
-        settingsPanel.setVisible(false);
-    }
-
-    public void setDifficultyEasy(){
-        setDifficulty(0);
-    }
-
-    public void setDifficultyMedium(){
-        setDifficulty(1);
-    }
-
-    public void setDifficultyHard(){
-        setDifficulty(2);
-    }
-
-
-    public void setDifficulty(int difficulty){
-
-        difficultyButton0.getStyleClass().clear();
-        difficultyButton1.getStyleClass().clear();
-        difficultyButton2.getStyleClass().clear();
-
-
-        difficultyButton0.getStyleClass().add("gameButton");
-        difficultyButton1.getStyleClass().add("gameButton");
-        difficultyButton2.getStyleClass().add("gameButton");
-
-
-
-
-        switch (difficulty) {
-            case (0) -> {
-                difficultyButton0.getStyleClass().remove("gameButton");
-                difficultyButton0.getStyleClass().add("difficulty-button-selected");
-                SudokuApplication.board.setDifficulty(0);
-            }
-            case (1) -> {
-                difficultyButton1.getStyleClass().remove("gameButton");
-                difficultyButton1.getStyleClass().add("difficulty-button-selected");
-                SudokuApplication.board.setDifficulty(1);
-            }
-            case (2) -> {
-                difficultyButton2.getStyleClass().remove("gameButton");
-                difficultyButton2.getStyleClass().add("difficulty-button-selected");
-                SudokuApplication.board.setDifficulty(2);
-            }
-            default -> {
-            }
-        }
-    }
-
-    public void generateNewBoard(){
-        SudokuApplication.board.loadNewBoard();
-        setProtectedTiles();
-        startTimer();
-    }
-
-    public void resetBoard(){
-        SudokuApplication.board.resetBoard();
-        setProtectedTiles();
-        startTimer();
-    }
 
     private void buildBoardModel(int size) {
         for (int i = 0; i < size; i++) {
@@ -168,22 +132,116 @@ public class SudokuAppController {
             }
         }
     }
-    
+
     public void setProtectedTiles(){
-        for ( Pair<Integer,Integer> pair: protectedTilesList) {
+        for ( Pair<Integer,Integer> pair: protectedTilesList) {//remove styling of old protected tiles
             Label label = (Label) boardFrame.lookup("#gameTile"+pair.getKey()+pair.getValue());
 
             label.getStyleClass().remove("sudoku-tile-protected");
         }
 
-        protectedTilesList = SudokuApplication.board.getProtectedTiles();
+        protectedTilesList = SudokuApplication.board.getProtectedTiles();//get updated list of protected tiles
 
-        for ( Pair<Integer,Integer> pair: protectedTilesList) {
+        for ( Pair<Integer,Integer> pair: protectedTilesList) {//add styling to new protected tiles
             Label label = (Label) boardFrame.lookup("#gameTile"+pair.getKey()+pair.getValue());
 
             label.getStyleClass().add("sudoku-tile-protected");
         }
     }
+
+
+
+
+
+
+
+
+
+    //---------------------------------------------------------------------------
+
+    //               USER INTERFACE COMPONENT ( SETTINGS MENU )
+
+    //---------------------------------------------------------------------------
+
+
+
+
+    public void openSettingsPanel(){
+        settingsPanel.setDisable(false);
+        settingsPanel.setVisible(true);
+    }
+
+
+    public void closeSettingsPanel(){
+        settingsPanel.setDisable(true);
+        settingsPanel.setVisible(false);
+    }
+
+
+    public void setDifficultyEasy(){
+        setDifficulty(0);
+    }
+
+
+    public void setDifficultyMedium(){
+        setDifficulty(1);
+    }
+
+
+    public void setDifficultyHard(){
+        setDifficulty(2);
+    }
+
+
+    public void setDifficulty(int difficulty){
+
+        difficultyButton0.getStyleClass().clear();
+        difficultyButton1.getStyleClass().clear();
+        difficultyButton2.getStyleClass().clear();
+
+
+        difficultyButton0.getStyleClass().add("gameButton");
+        difficultyButton1.getStyleClass().add("gameButton");
+        difficultyButton2.getStyleClass().add("gameButton");
+
+
+
+
+        switch (difficulty) {
+            case (0) -> {
+                difficultyButton0.getStyleClass().remove("gameButton");
+                difficultyButton0.getStyleClass().add("difficulty-button-selected");
+                SudokuApplication.board.setDifficulty(0);
+            }
+            case (1) -> {
+                difficultyButton1.getStyleClass().remove("gameButton");
+                difficultyButton1.getStyleClass().add("difficulty-button-selected");
+                SudokuApplication.board.setDifficulty(1);
+            }
+            case (2) -> {
+                difficultyButton2.getStyleClass().remove("gameButton");
+                difficultyButton2.getStyleClass().add("difficulty-button-selected");
+                SudokuApplication.board.setDifficulty(2);
+            }
+            default -> {
+            }
+        }
+    }
+
+
+
+
+
+
+
+    //---------------------------------------------------------------------------
+
+    //                              TIMER
+
+    //---------------------------------------------------------------------------
+
+
+
 
     public void startTimer(){
         scheduler.shutdown();
@@ -213,6 +271,21 @@ public class SudokuAppController {
                 });
             }
     }
+
+
+
+
+
+
+    //---------------------------------------------------------------------------
+
+    //                          EVENT HANDLERS
+
+    //---------------------------------------------------------------------------
+
+
+
+
 
     EventHandler<MouseEvent> gameTileClickedHandler = event -> {
         Label newTile = (Label) event.getSource();

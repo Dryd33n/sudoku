@@ -3,6 +3,7 @@ package app.dryden.sudoku;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -10,7 +11,6 @@ import java.io.IOException;
 public class SudokuApplication extends Application {
 
     public static Board board;
-    public static SudokuAppController controller;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -19,8 +19,8 @@ public class SudokuApplication extends Application {
         scene.setOnKeyTyped(SudokuAppController.keyPressedHandler);
 
         board = new Board(9,0);
-        controller = fxmlLoader.getController();
 
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         stage.setResizable(false);
         stage.setTitle("Sudoku #");
         stage.setScene(scene);
