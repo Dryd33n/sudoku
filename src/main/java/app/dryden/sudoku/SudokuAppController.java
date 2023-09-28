@@ -22,28 +22,27 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class SudokuAppController {
 
-    public VBox boardFrame;
-
 
 
     public static Label currentTile = new Label();
     public static StringProperty[][] boardModel;
 
-    public static StringProperty timeString = new SimpleStringProperty("Time: 0:00");
-
     public static ArrayList<Pair<Integer,Integer>> protectedTilesList = new ArrayList<>();
-    public Label sudokuTimer;
 
+    public ArrayList<MenuItem> themeSelectorButtons = new ArrayList<>();
+
+    public static StringProperty timeString = new SimpleStringProperty("Time: 0:00");
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     public static int secondsElapsed = 0;
+
+    public VBox boardFrame;
     public AnchorPane settingsPanel;
     public Pane difficultyButton0;
     public Pane difficultyButton1;
     public Pane difficultyButton2;
     public MenuButton themeMenuButton;
+    public Label sudokuTimer;
 
-    public ArrayList<MenuItem> themeSelectorButtons = new ArrayList<>();
-
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 
 
@@ -61,6 +60,7 @@ public class SudokuAppController {
         setProtectedTiles();
         startTimer();
     }
+
 
     public void resetBoard(){
         SudokuApplication.board.resetBoard();
@@ -152,6 +152,7 @@ public class SudokuAppController {
             }
         }
     }
+
 
     public void setProtectedTiles(){
         for ( Pair<Integer,Integer> pair: protectedTilesList) {//remove styling of old protected tiles

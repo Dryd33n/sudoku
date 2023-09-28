@@ -102,6 +102,7 @@ public class Board extends BoardUtils {
         return isValid;
     }
 
+
     private Boolean isValidTile(int rowNumber, int columnNumber){
         boolean isValid = true;
         int tileValue = sudokuBoard[rowNumber][columnNumber];
@@ -123,6 +124,7 @@ public class Board extends BoardUtils {
         return false;
     }
 
+
     private Boolean columnContains(int columnNumber, int containsNumber) {
         for (int[] rows : sudokuBoard) {
             if (rows[columnNumber] == containsNumber) {
@@ -134,18 +136,18 @@ public class Board extends BoardUtils {
 
 
     private Boolean subgridContains(int rowNumber, int columnNumber, int containsNumber) {
-        int subgridRow = rowNumber / subgridSize;
-        int subgridColumn = columnNumber / subgridSize;
+            int subgridRow = rowNumber / subgridSize;
+            int subgridColumn = columnNumber / subgridSize;
 
-        for (int i = subgridRow * subgridSize; i < subgridRow * subgridSize + subgridSize; i++) {
-            for (int j = subgridColumn * subgridSize; j < subgridColumn * subgridSize + subgridSize; j++) {
-                if (sudokuBoard[i][j] == containsNumber) {
-                    return true;
+            for (int i = subgridRow * subgridSize; i < subgridRow * subgridSize + subgridSize; i++) {
+                for (int j = subgridColumn * subgridSize; j < subgridColumn * subgridSize + subgridSize; j++) {
+                    if (sudokuBoard[i][j] == containsNumber) {
+                        return true;
+                    }
                 }
             }
+            return false;
         }
-        return false;
-    }
 
 
 
@@ -187,8 +189,8 @@ public class Board extends BoardUtils {
 
 
     public void setDifficulty(int difficulty){
-        this.difficulty = difficulty;
-    }
+            this.difficulty = difficulty;
+        }
 
 
 
@@ -267,4 +269,5 @@ public class Board extends BoardUtils {
 
         return boardString.toString();
     }
+
 }

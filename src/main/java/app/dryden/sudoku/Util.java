@@ -31,7 +31,7 @@ public class Util {
     }
 
 
-    public static int randonNumBetween(int min, int max){
+    public static int randomNumBetween(int min, int max){
         return random.nextInt(max - min + 1) + min;
     }
     public static boolean getRandomBool(){

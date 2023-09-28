@@ -5,6 +5,11 @@
     -fx-background-radius: 10, 10, 10;
 }
 
+.menu-item >.label{
+    -fx-text-fill: #fffff9;
+    -fx-background-insets: 0;
+}
+
 .root
 {
 -font-family: 'Switzer-Black';
@@ -15,24 +20,36 @@
     -fx-background-color: #b3dec100;
 }
 
-.sudoku-tile
-{
+.context-menu{
+    -fx-background-color:  #393c9b;
+    -fx-padding: 0;
+    -fx-background-radius: 10;
+}
+
+
+
+/**************************************************************************/
+/*                              SUDOKU TILE
+/**************************************************************************/
+
+
+.sudoku-tile {/*Base Sudoku Tile*/
     -fx-alignment: center;
     -fx-font-size: 16px;
     -fx-text-fill: #ffffff;
 }
 
-.sudoku-tile-editing {
+.sudoku-tile-editing { /*When use has selected tile and can press keyboard to change number*/
     -fx-border-width: 2px;
     -fx-border-color: #FFA500;
 }
 
-.sudoku-tile-invalid {
+.sudoku-tile-invalid { /*When hint is given that tile is incorrect*/
     -fx-border-width: 2px;
     -fx-border-color: #FF0000;
 }
 
-.sudoku-tile-protected {
+.sudoku-tile-protected { /*for tiles already placed when board is generated*/
     -fx-alignment: center;
     -fx-font-size: 16px;
     -fx-text-fill: #a0a0a0;
@@ -41,127 +58,143 @@
 }
 
 
-.difficulty-button-selected{
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #a44dab 0.0%, #833291 100.0%);
-}
 
 
-.themeButton.first{
-    -fx-background-radius: 10 10 0 0;
-}
-
-.themeButton.last{
-    -fx-background-radius: 0 0 10 10;
-}
-
-.theme-button-selected.first{
-    -fx-background-radius: 10 10 0 0;
-}
-
-.theme-button-selected.last{
-    -fx-background-radius: 0 0 10 10;
-}
+/**************************************************************************/
+/*                           NEW GAME BUTTONS
+/**************************************************************************/
 
 
+    .gameButton{
+        -fx-background-insets: 0,0,0,0,0;
+        -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #4d50ab 0.0%, #4545b2 100.0%);
+        -fx-background-radius:  10;
+    }
+
+    .gameButton:hover{
+        -fx-background-insets: 0,0,0,0,0;
+        -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #3c3e83 0.0%, #4242a7 100.0%);
+        -fx-scale-x: 1.02;
+        -fx-scale-y: 1.02;
+    }
+
+    .gameButton:pressed{
+        -fx-background-insets: 0,0,0,0,0;
+        -fx-scale-x: 0.98;
+        -fx-scale-y: 0.98;
+        -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #6d70e4 0.0%, #c04fc6 100.0%);
+    }
 
 
-.themeButton{
-    -fx-background-insets: 0,0,0,0,0;
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #4d50ab 0.0%, #4545b2 100.0%);
-    -fx-background-radius:  0;
-}
+/******************************************************************************************/
+/*                                                                                        */
+/*                                       SETTINGS                                         */
+/*                                                                                        */
+/******************************************************************************************/
 
-.themeButton:hover{
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #3c3e83 0.0%, #4242a7 100.0%);
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-}
+    .difficulty-button-selected{/*Highlighting for selected theme*/
+        -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #a44dab 0.0%, #833291 100.0%);
+    }
 
-.themeButton:pressed{
-    -fx-scale-x: 0.98;
-    -fx-scale-y: 0.98;
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #6d70e4 0.0%, #c04fc6 100.0%);
-}
+    /**************************************************************************/
+    /*                          SETTINGS BUTTON
+    /**************************************************************************/
 
 
-.theme-button-selected{!important;
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #a44dab 0.0%, #833291 100.0%);
-    -fx-background-insets: 0,0,0,0,0;
-}
+    .settingsButton{
+        -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #7c3080 0.0%, #7a3ea4 100.0%);
+        -fx-background-radius:  0 10 10 0;
+        -fx-border-width:  0 0 0 1;
+        -fx-border-color:  #645c72;
+    }
+
+    .settingsButton:hover{
+        -fx-scale-x: 1.02;
+        -fx-scale-y: 1.02;
+        -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #552874 0.0%, #7a3ea4 100.0%);
+    }
+
+    .settingsButton:pressed{
+        -fx-scale-x: 0.98;
+        -fx-scale-y: 0.98;
+        -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #6d70e4 0.0%, #c04fc6 100.0%);
+    }
+
+
+    /**************************************************************************/
+    /*                           CLOSE SETTINGS
+    /**************************************************************************/
+
+
+    .closeSettingsButton{
+        -fx-background-radius:  0 7 0 0;
+        -fx-background-color:  #393c9b;
+    }
+
+    .closeSettingsButton:hover{
+        -fx-background-color:  #2e327e;
+    }
+
+    .closeSettingsButton:pressed{
+        -fx-background-color:  #ff0000;
+    }
+
+    .closeSettingsLabel:hover{
+        -fx-text-fill: #98399b;
+    }
+
+    .closeSettingsLabel:pressed{
+    }
 
 
 
+    /**************************************************************************/
+    /*                           THEME BUTTONS
+    /**************************************************************************/
 
 
-.gameButton{
-    -fx-background-insets: 0,0,0,0,0;
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #4d50ab 0.0%, #4545b2 100.0%);
-    -fx-background-radius:  10;
-}
-
-.gameButton:hover{
-    -fx-background-insets: 0,0,0,0,0;
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #3c3e83 0.0%, #4242a7 100.0%);
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-}
-
-.gameButton:pressed{
-    -fx-background-insets: 0,0,0,0,0;
-    -fx-scale-x: 0.98;
-    -fx-scale-y: 0.98;
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #6d70e4 0.0%, #c04fc6 100.0%);
-}
+        /*                  BASE THEME BUTTON STYLING                      */
 
 
+        .themeButton{
+            -fx-background-insets: 0,0,0,0,0;
+            -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #4d50ab 0.0%, #4545b2 100.0%);
+            -fx-background-radius:  0;
+        }
+
+        .themeButton:hover{
+            -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #3c3e83 0.0%, #4242a7 100.0%);
+            -fx-scale-x: 1.02;
+            -fx-scale-y: 1.02;
+        }
+
+        .themeButton:pressed{
+            -fx-scale-x: 0.98;
+            -fx-scale-y: 0.98;
+            -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #6d70e4 0.0%, #c04fc6 100.0%);
+        }
+
+        .theme-button-selected{!important;
+            -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #a44dab 0.0%, #833291 100.0%);
+            -fx-background-insets: 0,0,0,0,0;
+        }
 
 
-.settingsButton{
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #7c3080 0.0%, #7a3ea4 100.0%);
-    -fx-background-radius:  0 10 10 0;
-    -fx-border-width:  0 0 0 1;
-    -fx-border-color:  #645c72;
-}
+        /*                CORNER ROUNDING (TOP / BOTTOM                    */
 
-.settingsButton:hover{
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #552874 0.0%, #7a3ea4 100.0%);
-}
 
-.settingsButton:pressed{
-    -fx-scale-x: 0.98;
-    -fx-scale-y: 0.98;
-    -fx-background-color:  radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #6d70e4 0.0%, #c04fc6 100.0%);
-}
+        .themeButton.first{/*Corner Rounding for top item*/
+            -fx-background-radius: 10 10 0 0;
+        }
 
-.closeSettingsButton{
-    -fx-background-radius:  0 7 0 0;
-    -fx-background-color:  #393c9b;
-}
+        .theme-button-selected.first{/*Corner Rounding for top item*/
+            -fx-background-radius: 10 10 0 0;
+        }
 
-.closeSettingsButton:hover{
-    -fx-background-color:  #2e327e;
-}
+        .themeButton.last{/*Corner Rounding for bottom item*/
+            -fx-background-radius: 0 0 10 10;
+        }
 
-.closeSettingsButton:pressed{
-    -fx-background-color:  #ff0000;
-}
-
-.closeSettingsLabel:hover{
-    -fx-text-fill: #98399b;
-}
-
-.closeSettingsLabel:pressed{
-}
-
-.context-menu{
-    -fx-background-color:  #393c9b;
-    -fx-padding: 0;
-    -fx-background-radius: 10;
-}
-
-.menu-item >.label{
-    -fx-text-fill: #fffff9;
-    -fx-background-insets: 0;
-}
+        .theme-button-selected.last{/*Corner Rounding for bottom item*/
+            -fx-background-radius: 0 0 10 10;
+        }

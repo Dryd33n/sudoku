@@ -3,7 +3,6 @@ package app.dryden.sudoku;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 
@@ -26,7 +25,7 @@ public class BoardUtils {
             case 0 -> generateDiagonal();
             case 1 -> generateFilledSubgrid();
             case 2 -> {
-                int value = Util.randonNumBetween(1, 9);
+                int value = Util.randomNumBetween(1, 9);
                 yield generateEmptyBoard(9, value);
             }
             default -> generateEmptyBoard(9, 0);
@@ -244,6 +243,7 @@ public class BoardUtils {
         return board;
     }
 
+
     static void addThemeColours(){
         boardStyles.put("royal-forest", new String[]{"#0F1F1E", "#01121A", "#291A29", "#080307"});
         boardStyles.put("rusted-car",new String[]{"#1F0F0F", "#1A0101", "#1A2229", "#030508"});
@@ -262,6 +262,7 @@ public class BoardUtils {
 
 //---------------------------------------------------------------------------
 
+
     static String[] getBoardColours(String theme){
         return switch (theme) {
             case "rusted-car" -> boardStyles.get("rusted-car");
@@ -273,10 +274,11 @@ public class BoardUtils {
         };
     }
 
-    static LinkedHashMap<String, String[]> getBoardStyles() {
 
+    static LinkedHashMap<String, String[]> getBoardStyles() {
         return boardStyles;
     }
+
 
     static String getStyleString(int size, int rowIndex, int colIndex, String theme) {
         String[] gridColors = getBoardColours(theme); // Odd subgrid Even Tile, Odd subgrid Odd Tile, Even Subgrid Odd Tile, Even Subgrid Even Tile.
@@ -307,9 +309,12 @@ public class BoardUtils {
         return styleString;
     }
 
+
     static int getGetIndexOfStyleName(String styleName){
         return new ArrayList<>(boardStyles.keySet()).indexOf(styleName);
     }
+
+
 }
 
 
