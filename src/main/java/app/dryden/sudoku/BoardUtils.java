@@ -3,11 +3,15 @@ package app.dryden.sudoku;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 
 
 public class BoardUtils {
     public static final int subgridSize = 3;
+
+    public static LinkedHashMap<String,String[]> boardStyles = new LinkedHashMap<>();
 
 
     //---------------------------------------------------------------------------
@@ -18,17 +22,16 @@ public class BoardUtils {
 
     public static int[][] generateFancyBoard(int style){
 
-        switch(style) {
-            case 0:
-                return generateDiagonal();
-            case 1:
-                return generateFilledSubgrid();
-            case 2:
-                int value = Util.randonNumBetween(1,9);
-                return generateEmptyBoard(9,value);
-        }
+        return switch (style) {
+            case 0 -> generateDiagonal();
+            case 1 -> generateFilledSubgrid();
+            case 2 -> {
+                int value = Util.randonNumBetween(1, 9);
+                yield generateEmptyBoard(9, value);
+            }
+            default -> generateEmptyBoard(9, 0);
+        };
 
-        return generateEmptyBoard(9,0);
     }
 
     public static int[][] generateDiagonal() {
@@ -241,17 +244,38 @@ public class BoardUtils {
         return board;
     }
 
+    static void addThemeColours(){
+        boardStyles.put("royal-forest", new String[]{"#0F1F1E", "#01121A", "#291A29", "#080307"});
+        boardStyles.put("rusted-car",new String[]{"#1F0F0F", "#1A0101", "#1A2229", "#030508"});
+        boardStyles.put("cherry-blossom",new String[]{"#542A54", "#2F0C37", "#163629", "#062F27"});
+        boardStyles.put("ocean",new String[]{"#185960", "#0D3545", "#142F2C", "#08200E"});
+        boardStyles.put("sunset", new String[]{"#C02222", "#AB0030", "#8D11A6", "#602FC0"});
+    }
+
+
+
+
+
+//---------------------------------------------------------------------------
+
+//                              GETTERS
+
+//---------------------------------------------------------------------------
 
     static String[] getBoardColours(String theme){
         return switch (theme) {
-            case "rusted-car" -> new String[]{"#1F0F0F", "#1A0101", "#1A2229", "#030508"};
-            case "handsworth" -> new String[]{"#121233", "#050320", "#49401D", "#0C0A04"};
-            case "cherry-blossom" -> new String[]{"#542A54", "#2F0C37", "#163629", "#062F27"};
-            case "ocean" -> new String[]{"#185960", "#0D3545", "#142F2C", "#08200E"};
-            case "sunset" -> new String[]{"#C02222", "#AB0030", "#8D11A6", "#602FC0"};
-            default -> new String[]{"#0F1F1E", "#01121A", "#291A29", "#080307"};
+            case "rusted-car" -> boardStyles.get("rusted-car");
+            case "handsworth" -> boardStyles.get("handsworth");
+            case "cherry-blossom" -> boardStyles.get("cherry-blossom");
+            case "ocean" -> boardStyles.get("ocean");
+            case "sunset" -> boardStyles.get("sunset");
+            default -> boardStyles.get("royal-forest");
         };
+    }
 
+    static LinkedHashMap<String, String[]> getBoardStyles() {
+
+        return boardStyles;
     }
 
     static String getStyleString(int size, int rowIndex, int colIndex, String theme) {
@@ -282,4 +306,17 @@ public class BoardUtils {
         else if(rowIndex == size - 1 && colIndex == size - 1) styleString += "-fx-background-radius: 0 0 10 0;";
         return styleString;
     }
+
+    static int getGetIndexOfStyleName(String styleName){
+        return new ArrayList<>(boardStyles.keySet()).indexOf(styleName);
+    }
 }
+
+
+
+
+
+
+
+
+

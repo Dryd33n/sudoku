@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +39,9 @@ public class SudokuAppController {
     public Pane difficultyButton0;
     public Pane difficultyButton1;
     public Pane difficultyButton2;
+    public MenuButton themeMenuButton;
+
+    public ArrayList<MenuItem> themeSelectorButtons = new ArrayList<>();
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -80,6 +85,9 @@ public class SudokuAppController {
         boardModel = new StringProperty[BOARD_SIZE][BOARD_SIZE];
 
         sudokuTimer.textProperty().bind(timeString);
+
+        BoardUtils.addThemeColours();
+        buildThemeMenu("royal-forest");
 
         closeSettingsPanel();
 
@@ -134,6 +142,8 @@ public class SudokuAppController {
 
 
     public void reSkinBoard(String theme){
+        buildThemeMenu(theme);
+
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 Label cell = (Label) boardFrame.lookup("#gameTile" + i + j);
@@ -142,6 +152,7 @@ public class SudokuAppController {
             }
         }
     }
+
     public void setProtectedTiles(){
         for ( Pair<Integer,Integer> pair: protectedTilesList) {//remove styling of old protected tiles
             Label label = (Label) boardFrame.lookup("#gameTile"+pair.getKey()+pair.getValue());
@@ -159,7 +170,29 @@ public class SudokuAppController {
     }
 
 
+    public void buildThemeMenu(String theme){
+        themeMenuButton.getItems().clear();
+        themeSelectorButtons.clear();
 
+        for (int i = 0; i < BoardUtils.getBoardStyles().size(); i++) {
+            String themeName = (String) BoardUtils.getBoardStyles().keySet().toArray()[i];
+            int SelectedIndex = BoardUtils.getGetIndexOfStyleName(theme);
+            MenuItem item = new MenuItem(themeName);
+
+
+
+            if(i == SelectedIndex) item.getStyleClass().add("theme-button-selected");
+            if(i == 0) item.getStyleClass().add("first");
+            if(i == BoardUtils.getBoardStyles().size()-1) item.getStyleClass().add("last");
+
+            item.setOnAction(event -> reSkinBoard(themeName));
+            item.getStyleClass().add("themeButton");
+            item.setId("themeSelectButton"+i);
+
+            themeMenuButton.getItems().add(item);
+            themeSelectorButtons.add(item);
+        }
+    }
 
 
 
