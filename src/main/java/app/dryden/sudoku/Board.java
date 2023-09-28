@@ -44,7 +44,7 @@ public class Board extends BoardUtils {
     }
 
     public Board(int style, int nothing){
-        sudokuBoard = BoardUtils.generateFancyBoard(style);
+        sudokuBoard = BoardUtils.generateFancyBoard(Util.randomNumBetween(0,3));
         protectedTiles = BoardUtils.getBoolMatrix(false);
         updateBoardModel();
     }

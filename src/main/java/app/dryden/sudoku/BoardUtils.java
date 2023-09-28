@@ -24,10 +24,8 @@ public class BoardUtils {
         return switch (style) {
             case 0 -> generateDiagonal();
             case 1 -> generateFilledSubgrid();
-            case 2 -> {
-                int value = Util.randomNumBetween(1, 9);
-                yield generateEmptyBoard(9, value);
-            }
+            case 2 -> generateChecker(Util.randomNumBetween(1,9), Util.randomNumBetween(1,9));
+            case 3 -> generateEmptyBoard(9, Util.randomNumBetween(1, 9));
             default -> generateEmptyBoard(9, 0);
         };
 
@@ -41,6 +39,19 @@ public class BoardUtils {
         for (int i = 0; i < 9; i++) {
             System.arraycopy(numbs, j,board[i], 0 , 9);
             j--;
+        }
+
+        return board;
+    }
+
+    public static int[][] generateChecker(int value1, int value2){
+        int[][] board = new int[9][9];
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if((i+j) % 2 == 0) board[i][j] = value1;
+                else board[i][j] = value2;
+            }
         }
 
         return board;
