@@ -125,6 +125,7 @@ public class BoardUtils {
 
     public static int[][] generateUnsolvedBoard(int startingTiles){
         int[][] board = generateSolvedBoard();
+        SudokuApplication.board.setSolvedBoard(Util.copyIntMatrix(board));
         return pokeHoles(board, 81 - startingTiles);
     }
 
@@ -264,6 +265,9 @@ public class BoardUtils {
     }
 
 
+    static void updateCompletion() {
+        SudokuAppController.completionString.set("Completion: "+SudokuApplication.board.getBoardCompletion() + "/81");
+    }
 
 
 
@@ -324,6 +328,7 @@ public class BoardUtils {
     static int getGetIndexOfStyleName(String styleName){
         return new ArrayList<>(boardStyles.keySet()).indexOf(styleName);
     }
+
 
 
 }

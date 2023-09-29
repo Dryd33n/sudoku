@@ -7,15 +7,14 @@ import java.util.Arrays;
 
 public class Board extends BoardUtils {
 
-    protected int[][] sudokuBoard;//current sudoku board
-    int[][] generatedBoard = BoardUtils.generateEmptyBoard(9,1);//recent board used for reset
-    protected boolean[][] protectedTiles = BoardUtils.getBoolMatrix(true);//locked tiles that should not be changeable
-    protected int boardSize = 9;
-    protected int subgridSize = 3;
+    private int[][] sudokuBoard;//current sudoku board
+    private int[][] generatedBoard = BoardUtils.generateEmptyBoard(9,1);//recent board used for reset
+    private int[][] solvedBoard;
+    private boolean[][] protectedTiles = BoardUtils.getBoolMatrix(true);//locked tiles that should not be changeable
+    private final int boardSize = 9;
 
-
-    protected int difficulty = 0; // 0 = easy, 1 = medium, 2 = hard
-    protected ArrayList<Integer> difficultyConfig = new ArrayList<>(Arrays.asList(35, 25, 15)); // number of tiles to start with for each difficulty
+    private int difficulty = 0; // 0 = easy, 1 = medium, 2 = hard
+    private final ArrayList<Integer> difficultyConfig = new ArrayList<>(Arrays.asList(35, 25, 15)); // number of tiles to start with for each difficulty
 
 
 
@@ -43,7 +42,7 @@ public class Board extends BoardUtils {
         updateBoardModel();
     }
 
-    public Board(int style, int nothing){
+    public Board(int style, int ignoredNothing){
         sudokuBoard = BoardUtils.generateFancyBoard(Util.randomNumBetween(0,3));
         protectedTiles = BoardUtils.getBoolMatrix(false);
         updateBoardModel();
@@ -68,8 +67,11 @@ public class Board extends BoardUtils {
 
 
     public void loadNewBoard(){
-        sudokuBoard = BoardUtils.generateUnsolvedBoard(difficultyConfig.get(difficulty));
+        int startingTiles = difficultyConfig.get(difficulty);
+
+        sudokuBoard = BoardUtils.generateUnsolvedBoard(startingTiles);
         generatedBoard = Util.copyIntMatrix(sudokuBoard);
+
         updateProtectedTiles();
         updateBoardModel();
     }
@@ -136,7 +138,8 @@ public class Board extends BoardUtils {
 
 
     private Boolean subgridContains(int rowNumber, int columnNumber, int containsNumber) {
-            int subgridRow = rowNumber / subgridSize;
+        int subgridSize = 3;
+        int subgridRow = rowNumber / subgridSize;
             int subgridColumn = columnNumber / subgridSize;
 
             for (int i = subgridRow * subgridSize; i < subgridRow * subgridSize + subgridSize; i++) {
@@ -192,7 +195,21 @@ public class Board extends BoardUtils {
             this.difficulty = difficulty;
         }
 
+    public void setSolvedBoard(int[][] solvedBoard){
+        this.solvedBoard = solvedBoard;
+    }
 
+    public int getBoardCompletion(){
+        int solvedTiles = 0;
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if(sudokuBoard[i][j] == solvedBoard[i][j]) solvedTiles++;
+            }
+        }
+
+        return solvedTiles;
+    }
 
 
 

@@ -27,11 +27,14 @@ public class SudokuAppController {
     public static Label currentTile = new Label();
     public static StringProperty[][] boardModel;
 
+    public static StringProperty completionString = new SimpleStringProperty("Completion: 0/81");
+
     public static ArrayList<Pair<Integer,Integer>> protectedTilesList = new ArrayList<>();
 
     public ArrayList<MenuItem> themeSelectorButtons = new ArrayList<>();
 
     public static StringProperty timeString = new SimpleStringProperty("Time: 0:00");
+    public Label completionLabel;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     public static int secondsElapsed = 0;
 
@@ -57,6 +60,7 @@ public class SudokuAppController {
 
     public void generateNewBoard(){
         SudokuApplication.board.loadNewBoard();
+        BoardUtils.updateCompletion();
         setProtectedTiles();
         startTimer();
     }
@@ -64,6 +68,7 @@ public class SudokuAppController {
 
     public void resetBoard(){
         SudokuApplication.board.resetBoard();
+        BoardUtils.updateCompletion();
         setProtectedTiles();
         startTimer();
     }
@@ -85,6 +90,7 @@ public class SudokuAppController {
         boardModel = new StringProperty[BOARD_SIZE][BOARD_SIZE];
 
         sudokuTimer.textProperty().bind(timeString);
+        completionLabel.textProperty().bind(completionString);
 
         BoardUtils.addThemeColours();
         buildThemeMenu("royal-forest");
@@ -342,16 +348,17 @@ public class SudokuAppController {
         currentTile.getStyleClass().add("sudoku-tile-editing");
     };
 
-    static EventHandler<KeyEvent> keyPressedHandler = event -> {
+     static EventHandler<KeyEvent> keyPressedHandler = event -> {
         String key = event.getCharacter();
         int currentTileRow = Integer.parseInt(currentTile.getId().substring(8,9));
         int currentTileCol = Integer.parseInt(currentTile.getId().substring(9,10));
 
-
         if(event.getCharacter().matches("[1-9]")){
            SudokuApplication.board.setTile(currentTileRow,currentTileCol,Integer.parseInt(key));
         }
-    };
+
+         BoardUtils.updateCompletion();
+     };
 
 
 
