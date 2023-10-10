@@ -353,8 +353,12 @@ public class SudokuAppController {
         int currentTileRow = Integer.parseInt(currentTile.getId().substring(8,9));
         int currentTileCol = Integer.parseInt(currentTile.getId().substring(9,10));
 
+        System.out.println(event.getCharacter());
+
         if(event.getCharacter().matches("[1-9]")){
            SudokuApplication.board.setTile(currentTileRow,currentTileCol,Integer.parseInt(key));
+        }else {
+            SudokuApplication.board.setTile(currentTileRow,currentTileCol,0);
         }
 
          BoardUtils.updateCompletion();

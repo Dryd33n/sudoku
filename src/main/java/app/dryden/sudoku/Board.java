@@ -168,7 +168,12 @@ public class Board extends BoardUtils {
 
     public void setTile(int rowNumber, int columnNumber, int value){
         sudokuBoard[rowNumber][columnNumber] = value;
-        SudokuAppController.boardModel[rowNumber][columnNumber].set(String.valueOf(value));
+
+        if (value == 0){
+            SudokuAppController.boardModel[rowNumber][columnNumber].set(" ");
+        }else {
+            SudokuAppController.boardModel[rowNumber][columnNumber].set(String.valueOf(value));
+        }
     }
 
 
