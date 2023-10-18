@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.Separator?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="438.0" style="-fx-background-color: #14110F;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dryden.sudoku.SudokuAppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="438.0" style="-fx-background-color: #14110F;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dryden.sudoku.SudokuAppController">
     <children>
         <VBox prefHeight="734.0" prefWidth="438.0">
             <children>
@@ -165,7 +166,7 @@
                 </AnchorPane>
                 <HBox prefHeight="47.0" prefWidth="438.0" style="-fx-background-color: #000000; -fx-border-width: 2 0 0 0; -fx-border-color: #67399b; -fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0; -fx-scale-x: 1.02;">
                     <children>
-                        <Label fx:id="sudokuTimer" prefHeight="26.0" prefWidth="215.0" text="Time 0:00" textFill="#393c9b">
+                        <Label fx:id="sudokuTimer" prefHeight="26.0" prefWidth="195.0" text="Time 0:00" textFill="#393c9b">
                             <font>
                                 <Font name="SansSerif Bold Italic" size="18.0" />
                             </font>
@@ -173,12 +174,12 @@
                                 <Insets left="30.0" top="8.0" />
                             </HBox.margin>
                         </Label>
-                        <Label fx:id="completionLabel" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="225.0" text="Completion: 0/81" textFill="#393c9b">
+                        <Label fx:id="completionLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="225.0" text="Completion: 0/81" textFill="#393c9b">
                             <font>
                                 <Font name="SansSerif Bold Italic" size="18.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="30.0" top="8.0" />
+                                <Insets right="10.0" top="8.0" />
                             </HBox.margin>
                         </Label>
                     </children>
@@ -190,7 +191,7 @@
         </VBox>
       <AnchorPane fx:id="settingsPanel" maxWidth="130.0" prefHeight="104.0" prefWidth="128.0" style="-fx-translate-x: 14; -fx-translate-y: 140; -fx-background-radius: 13; -fx-border-radius: 10; -fx-border-width: 2px; -fx-border-color: #393c9b; -fx-background-color: #000000;">
          <children>
-            <VBox prefHeight="100.0" prefWidth="124.0" AnchorPane.rightAnchor="0.0">
+            <VBox prefHeight="152.0" prefWidth="124.0" AnchorPane.rightAnchor="2.0">
                <children>
                   <HBox prefHeight="19.0" prefWidth="124.0" style="-fx-background-color: #201f1e; -fx-background-radius: 10 10 0 0; -fx-border-radius: 10 10 0 0; -fx-border-color: #393c9b; -fx-border-width: 2;">
                      <VBox.margin>
@@ -283,6 +284,46 @@
                         <Font name="SansSerif Regular" size="9.5" />
                      </font>
                   </MenuButton>
+                  <HBox prefHeight="22.0" prefWidth="124.0">
+                     <children>
+                        <CheckBox alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#toggleTimerVisibility" textAlignment="RIGHT">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </CheckBox>
+                        <Label prefHeight="15.0" prefWidth="105.0" text="SHOW TIME    " textFill="#98399b">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="3.0" top="2.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="22.0" prefWidth="124.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" onMouseClicked="#toggleCompletionVisibility" prefHeight="6.0" prefWidth="3.0">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </CheckBox>
+                        <Label prefHeight="17.0" prefWidth="126.0" text="SHOW COMPLETION" textFill="#98399b">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="3.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

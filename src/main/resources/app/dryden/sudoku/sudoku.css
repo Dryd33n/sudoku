@@ -198,3 +198,30 @@
         .theme-button-selected.last{/*Corner Rounding for bottom item*/
             -fx-background-radius: 0 0 10 10;
         }
+
+    /**************************************************************************/
+    /*                              CHECK BOX
+    /**************************************************************************/
+
+    .check-box {
+        /* default properties */
+        selected-box-color: radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #a44dab 0.0%, #833291 100.0%);
+        box-color: radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #3c3e83 0.0%, #4242a7 100.0%);
+        mark-color: white;
+    }
+
+    .check-box:selected > .box {
+        /* background color for selected checkbox */
+        -fx-background-color: radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #a44dab 0.0%, #833291 100.0%);
+    }
+
+    .check-box > .box {
+        /* background color of unselected checkbox */
+        -fx-background-color: radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 50.0% 50.4739%, radius 50.0%, #3c3e83 0.0%, #4242a7 100.0%);
+    }
+
+    .check-box:selected > .box > .mark,
+    .check-box:indeterminate  > .box > .mark {
+        /* modify mark color */
+        -fx-background-color: white;
+    }

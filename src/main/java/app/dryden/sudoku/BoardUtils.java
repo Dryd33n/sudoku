@@ -261,7 +261,7 @@ public class BoardUtils {
         boardStyles.put("rusted-car",new String[]{"#1F0F0F", "#1A0101", "#1A2229", "#030508"});
         boardStyles.put("cherry-blossom",new String[]{"#542A54", "#2F0C37", "#163629", "#062F27"});
         boardStyles.put("ocean",new String[]{"#185960", "#0D3545", "#142F2C", "#08200E"});
-        boardStyles.put("sunset", new String[]{"#C02222", "#AB0030", "#8D11A6", "#602FC0"});
+        boardStyles.put("sunset", new String[]{"#8B1818", "#7A0023", "#5E0C6E", "#412083"});
     }
 
 

@@ -29,11 +29,14 @@ public class SudokuAppController {
 
     public static StringProperty completionString = new SimpleStringProperty("Completion: 0/81");
 
+    public static Boolean completionShown = true;
+
     public static ArrayList<Pair<Integer,Integer>> protectedTilesList = new ArrayList<>();
 
     public ArrayList<MenuItem> themeSelectorButtons = new ArrayList<>();
 
     public static StringProperty timeString = new SimpleStringProperty("Time: 0:00");
+    public static Boolean timeShown = true;
     public Label completionLabel;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     public static int secondsElapsed = 0;
@@ -275,6 +278,22 @@ public class SudokuAppController {
             default -> {
             }
         }
+    }
+
+
+    public void toggleTimerVisibility(){
+        if(timeShown) sudokuTimer.setVisible(false);
+        else sudokuTimer.setVisible(true);
+
+        timeShown = timeShown ? false : true;
+    }
+
+    
+    public void toggleCompletionVisibility(){
+        if (completionShown) completionLabel.setVisible(false);
+        else completionLabel.setVisible(true);
+
+        completionShown = completionShown ? false : true;
     }
 
 
