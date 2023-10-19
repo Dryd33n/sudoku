@@ -38,6 +38,9 @@ public class SudokuAppController {
     public static StringProperty timeString = new SimpleStringProperty("Time: 0:00");
     public static Boolean timeShown = true;
     public Label completionLabel;
+    public AnchorPane mainPane;
+    public Label openSolverButtonLabel;
+    public static Boolean solverShown = false;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     public static int secondsElapsed = 0;
 
@@ -282,23 +285,53 @@ public class SudokuAppController {
 
 
     public void toggleTimerVisibility(){
-        if(timeShown) sudokuTimer.setVisible(false);
-        else sudokuTimer.setVisible(true);
+        sudokuTimer.setVisible(!timeShown);
 
-        timeShown = timeShown ? false : true;
+        timeShown = !timeShown;
     }
 
-    
+
     public void toggleCompletionVisibility(){
-        if (completionShown) completionLabel.setVisible(false);
-        else completionLabel.setVisible(true);
+        completionLabel.setVisible(!completionShown);
 
-        completionShown = completionShown ? false : true;
+        completionShown = !completionShown;
     }
 
 
 
 
+
+    //---------------------------------------------------------------------------
+
+    //               USER INTERFACE COMPONENT ( SOLVER )
+
+    //---------------------------------------------------------------------------
+
+    public void toggleSolverMenu(){
+        if(solverShown) closeSolverMenu();
+        else openSolverMenu();
+    }
+
+
+    public void openSolverMenu(){
+        final int newStageWidth = 456;
+        final int newStageHeight = 687+40;
+
+        SudokuApplication.resizeStage(newStageWidth,newStageHeight);
+        mainPane.setPrefSize(newStageWidth,newStageHeight);
+        openSolverButtonLabel.setText("⮝ Close Solver ⮝");
+        solverShown = true;
+    }
+
+    public void closeSolverMenu(){
+        final int newStageWidth = 456;
+        final int newStageHeight = 687+40-100;
+
+        SudokuApplication.resizeStage(newStageWidth,newStageHeight);
+        mainPane.setPrefSize(newStageWidth,newStageHeight);
+        openSolverButtonLabel.setText("⮟  Open Solver  ⮟");
+        solverShown = false;
+    }
 
 
 

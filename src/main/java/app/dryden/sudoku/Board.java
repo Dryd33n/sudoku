@@ -293,3 +293,51 @@ public class Board extends BoardUtils {
     }
 
 }
+
+
+/*
+        ____________________________________________________________
+        |                                                          |
+        |                         SOLVER NOTES                     |
+        |__________________________________________________________|
+
+        Flow:
+            1: Open Solver Menu
+                -> Put Board in solver mode
+                -> Lock user inputs
+                -> Display highlighting layer
+
+            2: Select Algorithm
+
+            3.1 opt: change option to show changes
+            3.2 opt: change option to show solver highlighting
+            3.3 opt: change option for solver speed
+
+            4: Start Solver
+
+            4.1 opt: Pause / Resume Solver
+
+            5: Close solver with or without changes from solver applied to board.
+
+
+
+                UI NOTES:
+
+                Main frame dimensions with solver CLOSED
+                    WIDTH: 438
+                    HEIGHT: 587
+
+                Solver Dimensions
+                    WIDTH: 438
+                    HEIGHT: 100
+
+                Main frame dimension with solver OPEN:
+                    WIDTH: 438
+                    HEIGHT: 687
+
+
+
+
+
+
+* */

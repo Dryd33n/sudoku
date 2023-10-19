@@ -12,11 +12,12 @@ import java.util.Objects;
 public class SudokuApplication extends Application {
 
     public static Board board;
+    public static Stage mainStage;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SudokuApplication.class.getResource("sudoku.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 440, 580);
+        Scene scene = new Scene(fxmlLoader.load(), 440, 587);
         scene.setOnKeyTyped(SudokuAppController.keyPressedHandler);
 
         board = new Board(1,0);
@@ -26,6 +27,12 @@ public class SudokuApplication extends Application {
         stage.setTitle("Sudoku #");
         stage.setScene(scene);
         stage.show();
+        mainStage = stage;
+    }
+
+    public static void resizeStage(int width, int height){
+        mainStage.setWidth(width);
+        mainStage.setHeight(height);
     }
 
     public static void main(String[] args) {
