@@ -26,6 +26,15 @@
     -fx-background-radius: 10;
 }
 
+.slider .track{
+    -fx-control-inner-background: #393c9b;
+    -fx-background-insets: 0;
+}
+
+.slider .thumb{
+    -fx-background-color: #c04fc6;
+}
+
 
 
 /**************************************************************************/

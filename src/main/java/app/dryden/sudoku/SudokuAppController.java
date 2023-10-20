@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -41,6 +42,8 @@ public class SudokuAppController {
     public AnchorPane mainPane;
     public Label openSolverButtonLabel;
     public static Boolean solverShown = false;
+    public AnchorPane highlightFrame;
+    public static Node[][] highlighterStyleNodeMatrix;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     public static int secondsElapsed = 0;
 
@@ -105,6 +108,7 @@ public class SudokuAppController {
 
         buildBoardModel(BOARD_SIZE);
         buildBoard(BOARD_SIZE);
+        buildBoardHighlighter(BOARD_SIZE);
     }
 
 
@@ -152,6 +156,33 @@ public class SudokuAppController {
         }
     }
 
+
+    public void buildBoardHighlighter(int size){
+        highlighterStyleNodeMatrix = new Node[9][9];
+
+        highlightFrame.applyCss();
+        highlightFrame.layout();
+
+        double boardWidth = 378;// boardFrame.getWidth();
+        double boardHeight = 378;//boardFrame.getHeight();
+        double cellWidth = boardWidth / size;
+        double cellHeight = boardHeight / size;
+
+        for (int i = 0; i < 9; i++) {
+            HBox hbox = new HBox();
+            hbox.setPrefWidth(boardWidth);
+            hbox.setPrefHeight(cellHeight);
+            highlightFrame.getChildren().add(hbox);
+
+            for (int j = 0; j < 9; j++) {
+            Pane highlightPane = new Pane();
+            highlightPane.setPrefSize(cellHeight,cellWidth);
+            highlightPane.setId("highlightPane"+i+j);
+            highlighterStyleNodeMatrix[i][j] = highlightPane.getStyleableNode();
+            hbox.getChildren().add(highlightPane);
+            }
+        }
+    }
 
     public void reSkinBoard(String theme){
         buildThemeMenu(theme);
